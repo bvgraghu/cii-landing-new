@@ -229,7 +229,12 @@ export default function AboutPage() {
                  <div className="relative z-10 text-center p-10 -rotate-3 group-hover:rotate-0 transition-transform duration-500">
                     <h3 className="text-4xl font-black mb-4">Join the Transition</h3>
                     <p className="text-emerald-50 mb-8 font-bold">Access the Green Technology Portal to begin your journey.</p>
-                    <a href="https://cii.metaversedu.in/login" className="inline-flex items-center gap-2 bg-white text-emerald-900 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-slate-100 transition-colors">
+                    <a 
+                      href="https://cii.metaversedu.in/login" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-white text-emerald-900 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-slate-100 transition-colors"
+                    >
                       Login to Portal <ArrowRight size={16} />
                     </a>
                  </div>
