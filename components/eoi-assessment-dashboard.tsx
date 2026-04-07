@@ -281,51 +281,44 @@ export function EOIAssessmentDashboard() {
 
   return (
     <section ref={containerRef} className="w-full bg-slate-200 border-y border-slate-300 relative" id="impact-dashboard" style={{ height: "400vh" }}>
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden py-10 px-6 md:px-12">
-        <div className="max-w-[1500px] w-full mx-auto flex flex-col h-full items-center">
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden py-4 md:py-10 px-4 md:px-12">
+        <div className="max-w-[1500px] w-full mx-auto flex flex-col h-full items-center justify-center">
 
           {/* Header */}
-          <div className="flex flex-col md:flex-row items-end justify-between border-b border-slate-300 pb-6 mb-6 w-full">
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-none italic mb-2">
+          <div className="flex flex-col md:flex-row items-end justify-between border-b border-slate-300 pb-4 mb-4 w-full">
+            <div className="w-full md:w-auto">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-none italic mb-1 md:mb-2">
                 Sectoral <span className="text-emerald-600">Coverage Map</span>
               </h2>
-              <p className="text-sm font-bold text-slate-500 uppercase tracking-wide max-w-xl">
-                Interactive visualization showcasing the number and distribution of MSMEs across different sectors.
+              <p className="text-[10px] md:text-sm font-bold text-slate-500 uppercase tracking-wide max-w-xl">
+                Interactive visualization showcasing MSME distribution across sectors.
               </p>
             </div>
-            <div className="text-right">
+            <div className="hidden md:block text-right">
               <p className="text-sm text-slate-600 font-bold bg-white shadow-sm border border-slate-300 px-4 py-2 rounded-lg mt-4 md:mt-0 max-w-sm ml-auto">
                 <span className="text-emerald-600 text-lg">↓</span> <span className="text-emerald-600">Scroll slowly</span> to build the tree, or click to Zoom.
               </p>
-              <div className="flex flex-wrap gap-1.5 justify-end mt-4 max-w-[200px] ml-auto">
-                {Array.from({ length: 11 }).map((_, st) => (
-                  <div key={st} className={`h-1.5 w-3 rounded-full transition-colors duration-500 ${scrollPhase >= st ? 'bg-emerald-500' : 'bg-slate-300'}`} />
-                ))}
-              </div>
             </div>
           </div>
 
           {/* ECharts Sunburst Container */}
-          <div className="w-full bg-slate-50/80 backdrop-blur-sm shadow-2xl rounded-[3rem] border border-slate-300 p-8 flex flex-1 w-full min-h-[600px] max-h-[900px] lg:max-h-[1100px] relative mt-2 md:mt-8 overflow-hidden">
+          <div className="w-full bg-slate-50/80 backdrop-blur-sm shadow-2xl rounded-[2rem] md:rounded-[3rem] border border-slate-300 p-4 md:p-8 flex flex-1 w-full min-h-[400px] md:min-h-[600px] max-h-[85vh] relative mt-2 overflow-hidden">
             
             {/* STATEWIDE MILESTONES (Top Left Overlay) */}
-            <div className="absolute top-8 left-8 z-10 flex flex-col gap-4 bg-white/40 backdrop-blur-xl p-5 rounded-3xl border border-white/40 shadow-sm pointer-events-none min-w-[200px]">
-              <div className="space-y-1">
-                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Projected Milestone</p>
+            <div className="absolute top-4 left-4 md:top-8 md:left-8 z-10 flex flex-col gap-2 md:gap-4 bg-white/40 backdrop-blur-xl p-3 md:p-5 rounded-2xl md:rounded-3xl border border-white/40 shadow-sm pointer-events-none min-w-[140px] md:min-w-[200px]">
+              <div className="space-y-0.5 md:space-y-1">
+                <p className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-slate-400">Milestone</p>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-2xl font-black text-slate-900 tracking-tighter">1,240+</span>
-                  <span className="text-xs font-black text-emerald-600 italic">MWh</span>
+                  <span className="text-lg md:text-2xl font-black text-slate-900 tracking-tighter">1,240+</span>
+                  <span className="text-[10px] md:text-xs font-black text-emerald-600 italic">MWh</span>
                 </div>
-                <p className="text-[9px] font-bold text-slate-500 uppercase">Statewide Energy Saving Target</p>
               </div>
               <div className="h-px bg-slate-200/50 w-full" />
-              <div className="space-y-1">
+              <div className="space-y-0.5 md:space-y-1">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-xl font-black text-slate-900 tracking-tighter">8,450+</span>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase">Applications</span>
+                  <span className="text-md md:text-xl font-black text-slate-900 tracking-tighter">8,450+</span>
+                  <span className="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase">EoIs</span>
                 </div>
-                <p className="text-[9px] font-bold text-slate-500 uppercase">Total MSME EoIs Registered</p>
               </div>
             </div>
 
@@ -333,7 +326,7 @@ export function EOIAssessmentDashboard() {
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: hoveredData ? 1 : 0, x: hoveredData ? 0 : 20 }}
-              className="absolute top-8 right-8 z-10 w-72 bg-white/90 backdrop-blur-xl p-6 rounded-[2rem] border border-slate-200 shadow-xl pointer-events-none"
+              className="absolute top-4 right-4 md:top-8 md:right-8 z-10 w-48 md:w-72 bg-white/90 backdrop-blur-xl p-4 md:p-6 rounded-[1.5rem] md:rounded-[2rem] border border-slate-200 shadow-xl pointer-events-none scale-90 md:scale-100 origin-top-right"
             >
               {hoveredData && (
                 <div className="space-y-4">
