@@ -4,6 +4,7 @@ import React, { useMemo, useRef, useState, useEffect } from "react";
 import ReactECharts from "echarts-for-react";
 import { Leaf, Activity, Droplets, Zap, IndianRupee } from "lucide-react";
 import { motion, useScroll } from "framer-motion";
+import { useAppTheme } from "@/context/theme-context";
 
 // --- LAYER-BASED COLOR STRATEGY (STRICT) ---
 const SECTOR_THEMES: Record<string, { base: string, mid: string, light: string }> = {
@@ -41,6 +42,7 @@ const RAW_DATA: Record<string, { total: number, breakdown: Record<string, number
 const TOP_SECTORS = ["Food Processing", "Textiles", "Engineering/Metals", "Pharma/Chemicals"];
 
 export function EOIAssessmentDashboard() {
+  const { theme, colors } = useAppTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<any>(null);
 
@@ -280,29 +282,32 @@ export function EOIAssessmentDashboard() {
   };
 
   return (
-    <section ref={containerRef} className="w-full bg-slate-200 border-y border-slate-300 relative" id="impact-dashboard" style={{ height: "400vh" }}>
+    <section ref={containerRef} className="w-full relative transition-colors duration-700" id="impact-dashboard" style={{ height: "400vh", backgroundColor: colors.light }}>
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden py-4 md:py-10 px-4 md:px-12">
         <div className="max-w-[1500px] w-full mx-auto flex flex-col h-full items-center justify-center">
 
           {/* Header */}
-          <div className="flex flex-col md:flex-row items-end justify-between border-b border-slate-300 pb-4 mb-4 w-full">
+          <div className="flex flex-col md:flex-row items-end justify-between border-b border-slate-200 pb-4 mb-4 w-full">
             <div className="w-full md:w-auto">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-none italic mb-1 md:mb-2">
-                Sectoral <span className="text-emerald-600">Coverage Map</span>
+                Sectoral <span style={{ color: colors.primary }}>Coverage Map</span>
               </h2>
-              <p className="text-[10px] md:text-sm font-bold text-slate-500 uppercase tracking-wide max-w-xl">
+              <p className="text-[10px] md:text-sm font-black text-slate-400 uppercase tracking-[0.2em]">
                 Interactive visualization showcasing MSME distribution across sectors.
               </p>
             </div>
             <div className="hidden md:block text-right">
-              <p className="text-sm text-slate-600 font-bold bg-white shadow-sm border border-slate-300 px-4 py-2 rounded-lg mt-4 md:mt-0 max-w-sm ml-auto">
-                <span className="text-emerald-600 text-lg">↓</span> <span className="text-emerald-600">Scroll slowly</span> to build the tree, or click to Zoom.
+              <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest bg-white/50 backdrop-blur-md shadow-sm border border-slate-100 px-6 py-2 rounded-full mt-4 md:mt-0 max-w-sm ml-auto">
+                <span style={{ color: colors.primary }} className="text-lg">↓</span> <span style={{ color: colors.primary }}>Scroll slowly</span> to build the tree, or click to Zoom.
               </p>
             </div>
           </div>
 
           {/* ECharts Sunburst Container */}
-          <div className="w-full bg-slate-50/80 backdrop-blur-sm shadow-2xl rounded-[2rem] md:rounded-[3rem] border border-slate-300 p-4 md:p-8 flex flex-1 w-full min-h-[400px] md:min-h-[600px] max-h-[85vh] relative mt-2 overflow-hidden">
+          <div 
+            className="w-full backdrop-blur-sm shadow-[0_30px_100px_rgba(0,0,0,0.08)] rounded-[2rem] md:rounded-[3rem] border p-4 md:p-8 flex flex-1 w-full min-h-[400px] md:min-h-[600px] max-h-[85vh] relative mt-2 overflow-hidden transition-all duration-700"
+            style={{ backgroundColor: `${colors.light}aa`, borderColor: colors.mid }}
+          >
             
             {/* STATEWIDE MILESTONES (Top Left Overlay) */}
             <div className="absolute top-4 left-4 md:top-8 md:left-8 z-10 flex flex-col gap-2 md:gap-4 bg-white/40 backdrop-blur-xl p-3 md:p-5 rounded-2xl md:rounded-3xl border border-white/40 shadow-sm pointer-events-none min-w-[140px] md:min-w-[200px]">
@@ -310,7 +315,7 @@ export function EOIAssessmentDashboard() {
                 <p className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-slate-400">Milestone</p>
                 <div className="flex items-baseline gap-1">
                   <span className="text-lg md:text-2xl font-black text-slate-900 tracking-tighter">1,240+</span>
-                  <span className="text-[10px] md:text-xs font-black text-emerald-600 italic">MWh</span>
+                  <span className="text-[10px] md:text-xs font-black italic" style={{ color: colors.primary }}>MWh</span>
                 </div>
               </div>
               <div className="h-px bg-slate-200/50 w-full" />

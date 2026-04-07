@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Factory, Users, TrendingUp, Info } from "lucide-react";
+import { useAppTheme } from "@/context/theme-context";
 
 /* ─── Map Constants ───────────────────────────────────────────────────────── */
 
@@ -73,6 +74,7 @@ export const CLUSTERS_DATA = [
 /* ─── Components ───────────────────────────────────────────────────────────── */
 
 export function MSMEClustersMap() {
+  const { theme, colors } = useAppTheme();
   const [hoveredSvgDistrict, setHoveredSvgDistrict] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'clusters' | 'sectors'>('clusters');
   const [mapView, setMapView] = useState<'state' | 'hub'>('state');
@@ -133,11 +135,11 @@ export function MSMEClustersMap() {
           const hasTop20 = clustersInDistrict.length > 0 && !hasTop5;
           const isHighest = normalizedSvgName === "hyderabad" || normalizedSvgName === "ranga reddy" || normalizedSvgName === "medchal";
 
-          const defaultFill = isHighest ? "#065f46" : hasTop5 ? "#10b981" : hasTop20 ? "#86efac" : "#dcfce7";
-          const defaultStroke = isHighest ? "#064e3b" : hasTop5 ? "#059669" : hasTop20 ? "#34d399" : "#bbf7d0";
+          const defaultFill = isHighest ? colors.accent : hasTop5 ? colors.primary : hasTop20 ? colors.mid : colors.light;
+          const defaultStroke = isHighest ? colors.accent : hasTop5 ? colors.primary : hasTop20 ? colors.primary + '44' : colors.mid;
           
-          const hoverFill = isHighest ? "#047857" : hasTop5 ? "#34d399" : hasTop20 ? "#6ee7b7" : "#bbf7d0";
-          const hoverStroke = isHighest ? "#022c22" : hasTop5 ? "#047857" : hasTop20 ? "#10b981" : "#86efac";
+          const hoverFill = isHighest ? colors.accent : hasTop5 ? colors.primary : hasTop20 ? colors.primary + '88' : colors.mid;
+          const hoverStroke = isHighest ? colors.accent : hasTop5 ? colors.accent : hasTop20 ? colors.primary : colors.primary;
 
           el.style.fill = defaultFill;
           el.style.stroke = defaultStroke;
@@ -181,12 +183,15 @@ export function MSMEClustersMap() {
 
         {/* Header Section */}
         <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 bg-white text-emerald-700 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-sm border border-emerald-100">
-            <Factory size={12} className="text-emerald-500" />
+          <div 
+            className="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-sm border"
+            style={{ color: colors.accent, borderColor: colors.mid }}
+          >
+            <Factory size={12} style={{ color: colors.primary }} />
             Geography of Impact
           </div>
           <h2 className="text-3xl lg:text-4xl font-black text-slate-800 tracking-tight leading-none italic">
-            Strategic Action Zones for <span className="text-emerald-600">Green Transformation</span>
+            Strategic Action Zones for <span style={{ color: colors.primary }}>Green Transformation</span>
           </h2>
           <p className="text-xs font-bold text-slate-500 uppercase tracking-widest max-w-2xl mx-auto">
             Mapping resource-intensive manufacturing hubs prioritized for energy efficiency interventions
@@ -196,9 +201,9 @@ export function MSMEClustersMap() {
         {/* ── MAIN CONTENT ── */}
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start h-auto lg:h-[520px]">
 
-          {/* LEFT: Map Container */}
           <div 
-            className="w-full lg:w-1/2 h-[450px] lg:h-full relative bg-white p-6 lg:p-8 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-slate-100 overflow-hidden"
+            className="w-full lg:w-1/2 h-[450px] lg:h-full relative p-6 lg:p-8 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border transition-all duration-700 overflow-hidden"
+            style={{ backgroundColor: `${colors.mid}11`, borderColor: colors.mid }}
             onMouseMove={(e) => {
               const rect = e.currentTarget.getBoundingClientRect();
               setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
@@ -209,13 +214,15 @@ export function MSMEClustersMap() {
             <div className="absolute top-6 right-6 z-20 flex gap-2 bg-white/90 backdrop-blur-md p-1.5 rounded-full shadow-sm border border-slate-100">
               <button 
                 onClick={() => setMapView('state')}
-                className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-colors ${mapView === 'state' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800'}`}
+                className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${mapView === 'state' ? 'text-white shadow-md' : 'text-slate-500 hover:text-slate-800'}`}
+                style={{ backgroundColor: mapView === 'state' ? colors.primary : 'transparent' }}
               >
                 State View
               </button>
               <button 
                 onClick={() => setMapView('hub')}
-                className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-colors ${mapView === 'hub' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800'}`}
+                className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${mapView === 'hub' ? 'text-white shadow-md' : 'text-slate-500 hover:text-slate-800'}`}
+                style={{ backgroundColor: mapView === 'hub' ? colors.primary : 'transparent' }}
               >
                 Hub Focus
               </button>
@@ -242,9 +249,9 @@ export function MSMEClustersMap() {
             {/* Map Legend (Bottom Center) */}
             <div className="absolute bottom-6 left-0 w-full flex justify-center z-10 pointer-events-none">
               <div className="bg-white/95 backdrop-blur-md px-5 py-2.5 rounded-full shadow-lg border border-slate-100 flex flex-wrap gap-4 items-center">
-                <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#065f46]" /><span className="text-[9px] font-black text-slate-600 uppercase tracking-wider">Highest Density</span></div>
-                <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#10b981]" /><span className="text-[9px] font-black text-slate-600 uppercase tracking-wider">Top 5</span></div>
-                <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#a7f3d0]" /><span className="text-[9px] font-black text-slate-600 uppercase tracking-wider">Top 20</span></div>
+                <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: colors.accent }} /><span className="text-[9px] font-black text-slate-600 uppercase tracking-wider">Highest Density</span></div>
+                <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: colors.primary }} /><span className="text-[9px] font-black text-slate-600 uppercase tracking-wider">Top 5</span></div>
+                <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: colors.mid }} /><span className="text-[9px] font-black text-slate-600 uppercase tracking-wider">Top 20</span></div>
               </div>
             </div>
 
@@ -329,32 +336,62 @@ export function MSMEClustersMap() {
                   style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                    <div 
+                      className="w-10 h-10 rounded-2xl flex items-center justify-center transition-colors"
+                      style={{ backgroundColor: colors.light, color: colors.primary }}
+                    >
                       <MapPin size={22} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest leading-none">Selected District</p>
+                      <p className="text-[10px] font-black uppercase tracking-widest leading-none" style={{ color: colors.primary }}>Selected District</p>
                       <h3 className="text-xl lg:text-2xl font-black text-slate-900 tracking-tighter mt-1">{SVG_NAME_TO_DISTRICT[hoveredSvgDistrict]}</h3>
                     </div>
                   </div>
 
                   <div className="flex gap-4 border-b border-slate-100 mb-6 sticky top-0 bg-white/95 backdrop-blur-sm z-10 pt-2">
-                    <button onClick={() => setActiveTab('clusters')} className={`text-[11px] font-black uppercase tracking-widest pb-3 border-b-2 transition-colors ${activeTab === 'clusters' ? 'border-emerald-500 text-slate-800' : 'border-transparent text-slate-400 hover:text-slate-600'}`}>Cluster View</button>
-                    <button onClick={() => setActiveTab('sectors')} className={`text-[11px] font-black uppercase tracking-widest pb-3 border-b-2 transition-colors ${activeTab === 'sectors' ? 'border-emerald-500 text-slate-800' : 'border-transparent text-slate-400 hover:text-slate-600'}`}>Sector View</button>
+                    <button 
+                      onClick={() => setActiveTab('clusters')} 
+                      className={`text-[11px] font-black uppercase tracking-widest pb-3 border-b-2 transition-colors ${activeTab === 'clusters' ? 'text-slate-800' : 'border-transparent text-slate-400 hover:text-slate-600'}`}
+                      style={{ borderBottomColor: activeTab === 'clusters' ? colors.primary : 'transparent' }}
+                    >
+                      Cluster View
+                    </button>
+                    <button 
+                      onClick={() => setActiveTab('sectors')} 
+                      className={`text-[11px] font-black uppercase tracking-widest pb-3 border-b-2 transition-colors ${activeTab === 'sectors' ? 'text-slate-800' : 'border-transparent text-slate-400 hover:text-slate-600'}`}
+                      style={{ borderBottomColor: activeTab === 'sectors' ? colors.primary : 'transparent' }}
+                    >
+                      Sector View
+                    </button>
                   </div>
                   
                   <div className="space-y-4">
                     {activeTab === 'clusters' ? activeClusters.map((cluster) => (
-                      <div key={cluster.id} className="p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 transition-colors">
+                      <div 
+                        key={cluster.id} 
+                        className="p-5 rounded-2xl bg-slate-50 border border-slate-100 transition-colors"
+                        style={{ borderColor: hoveredSvgDistrict ? colors.mid + '44' : undefined }}
+                      >
                         <div className="flex items-start justify-between mb-3">
                           <div>
                             <h5 className="text-base font-black text-slate-800">{cluster.name}</h5>
-                            <span className={`inline-block mt-1 px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider ${cluster.rank === 'Top 5' ? 'bg-emerald-600 text-white' : 'bg-emerald-100 text-emerald-700'}`}>
+                            <span 
+                              className="inline-block mt-1 px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider transition-colors"
+                              style={{ 
+                                backgroundColor: cluster.rank === 'Top 5' ? colors.primary : colors.mid, 
+                                color: cluster.rank === 'Top 5' ? 'white' : colors.accent 
+                              }}
+                            >
                               {cluster.rank}
                             </span>
                           </div>
                           <div className="text-right">
-                            <span className="text-xl font-black text-emerald-600 italic leading-none block">{cluster.msmes.toLocaleString()}</span>
+                            <span 
+                              className="text-xl font-black italic leading-none block transition-colors"
+                              style={{ color: colors.primary }}
+                            >
+                              {cluster.msmes.toLocaleString()}
+                            </span>
                             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">MSMEs</span>
                           </div>
                         </div>
@@ -389,11 +426,14 @@ export function MSMEClustersMap() {
                   style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                   <div className="flex items-center gap-3 mb-8">
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                    <div 
+                      className="w-12 h-12 rounded-2xl text-white flex items-center justify-center shadow-lg transition-transform"
+                      style={{ backgroundColor: colors.primary, boxShadow: `0 10px 20px ${colors.primary}33` }}
+                    >
                       <TrendingUp size={24} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest leading-none">Global Ranking</p>
+                      <p className="text-[10px] font-black uppercase tracking-widest leading-none" style={{ color: colors.primary }}>Global Ranking</p>
                       <h3 className="text-2xl font-black text-slate-900 tracking-tighter mt-1">Top 5 Mega-Clusters</h3>
                     </div>
                   </div>
@@ -421,9 +461,12 @@ export function MSMEClustersMap() {
                     ))}
                   </div>
 
-                  <div className="mt-8 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 flex items-start gap-3">
-                    <Info size={16} className="text-emerald-600 shrink-0 mt-0.5" />
-                    <p className="text-xs font-medium text-emerald-800 leading-relaxed">
+                  <div 
+                    className="mt-8 p-4 rounded-2xl border flex items-start gap-3 transition-colors"
+                    style={{ backgroundColor: colors.light, borderColor: colors.mid }}
+                  >
+                    <Info size={16} className="shrink-0 mt-0.5" style={{ color: colors.primary }} />
+                    <p className="text-xs font-medium leading-relaxed" style={{ color: colors.accent }}>
                       Sectors including <strong>Food Processing</strong>, <strong>Pharma & Chemicals</strong>, and <strong>Engineering & Metals</strong> form the bulk of the high-impact greening targets.
                     </p>
                   </div>

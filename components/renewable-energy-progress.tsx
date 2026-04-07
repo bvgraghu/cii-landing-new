@@ -12,6 +12,7 @@ import {
   LabelList,
 } from "recharts";
 import { Download, Zap, Leaf, Award, ClipboardCheck, Users } from "lucide-react";
+import { useAppTheme } from "@/context/theme-context";
 
 // Conversion constants
 const CO2_PER_GWH = 820;   // tonnes CO₂ per GWh
@@ -114,6 +115,7 @@ function Row({ label, value }: { label: string; value: string }) {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export function RenewableEnergyProgress() {
+  const { theme, colors } = useAppTheme();
   const [mounted, setMounted] = useState(false);
   const [activeSector, setActiveSector] = useState<SectorKey | null>(null);
 
@@ -121,27 +123,40 @@ export function RenewableEnergyProgress() {
   if (!mounted) return null;
 
   return (
-    <section className="w-full py-12 px-6 md:px-12 font-sans relative" style={{ backgroundColor: "rgb(224 255 224)" }}>
+    <section className="w-full py-20 px-6 md:px-12 font-sans relative transition-colors duration-700" style={{ backgroundColor: colors.light }}>
       <div className="max-w-[1400px] mx-auto">
 
         {/* Download icon */}
-        <div className="absolute top-8 right-12 cursor-pointer text-[#1a3d1a] hover:bg-[#8ab58a]/40 p-2 rounded-full transition-colors">
+        <div 
+          className="absolute top-8 right-12 cursor-pointer p-2 rounded-full transition-colors"
+          style={{ color: colors.accent }}
+        >
           <Download className="w-5 h-5" />
         </div>
 
         {/* Header */}
-        <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-[#162b16]">Telangana Energy Assessment Report</h2>
-          <p className="text-xs text-[#3d6b3d] mt-1">MSME sector-wise energy savings from CII assessments across Telangana · FY 2017-18 to 2024-25</p>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-none italic">
+            Telangana Energy <span style={{ color: colors.primary }}>Assessment Report</span>
+          </h2>
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-3">
+            MSME sector-wise savings across Telangana · FY 2017-18 to 2024-25
+          </p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-0 items-stretch">
 
           {/* ── Chart ─────────────────────────────────────────────────────── */}
-          <div className="w-full lg:w-[65%] pr-6">
+          <div 
+            className="w-full lg:w-[65%] pr-8 py-8 rounded-[2.5rem] border transition-all duration-700"
+            style={{ backgroundColor: `${colors.mid}22`, borderColor: colors.mid }}
+          >
             <div className="h-[400px] w-full relative">
               {/* Y-axis label */}
-              <div className="absolute -left-4 top-1/2 -translate-y-1/2 -rotate-90 text-[11px] text-[#2d5a2d] tracking-wide whitespace-nowrap">
+              <div 
+                className="absolute -left-4 top-1/2 -translate-y-1/2 -rotate-90 text-[10px] font-black uppercase tracking-widest transition-colors"
+                style={{ color: colors.primary }}
+              >
                 Energy Saved (GWh)
               </div>
 
@@ -152,23 +167,23 @@ export function RenewableEnergyProgress() {
                   barSize={26}
                   onMouseLeave={() => setActiveSector(null)}
                 >
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(30,80,30,0.2)" opacity={1} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={colors.primary + '22'} opacity={1} />
                   <XAxis
                     dataKey="year"
-                    axisLine={{ stroke: "rgba(30,80,30,0.4)" }}
+                    axisLine={{ stroke: colors.primary + '44' }}
                     tickLine={false}
-                    tick={{ fill: "#2d5a2d", fontSize: 10 }}
+                    tick={{ fill: colors.primary, fontSize: 10, fontWeight: 700 }}
                     dy={10}
-                    label={{ value: "Financial Year", position: "insideBottom", offset: -2, fill: "#3d6b3d", fontSize: 10 }}
+                    label={{ value: "Financial Year", position: "insideBottom", offset: -2, fill: colors.primary, fontSize: 10, fontWeight: 700 }}
                   />
                   <YAxis
                     axisLine={false}
                     tickLine={false}
-                    tick={{ fill: "#2d5a2d", fontSize: 10 }}
+                    tick={{ fill: colors.primary, fontSize: 10, fontWeight: 700 }}
                     dx={-10}
                   />
                   <Tooltip
-                    cursor={{ fill: "rgba(30,80,30,0.08)" }}
+                    cursor={{ fill: colors.primary + '08' }}
                     content={<CustomTooltip activeSector={activeSector} />}
                   />
 
@@ -188,7 +203,7 @@ export function RenewableEnergyProgress() {
                         <LabelList
                           dataKey="total"
                           position="top"
-                          fill="#162b16"
+                          fill={colors.accent}
                           fontSize={10}
                           fontWeight="bold"
                         />
@@ -200,23 +215,26 @@ export function RenewableEnergyProgress() {
             </div>
 
             {/* Legend */}
-            <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[11px] text-[#2d5a2d] ml-12">
+            <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[11px] ml-12">
               {SECTORS.map(s => (
-                <LegendItem key={s.key} color={s.color} label={s.label} />
+                <LegendItem key={s.key} color={s.color} label={s.label} textStyle={{ color: colors.accent }} />
               ))}
             </div>
 
-            <p className="text-center text-[10px] text-[#3d6b3d]/70 mt-4 ml-12 italic">
+            <p className="text-center text-[10px] text-slate-400 mt-4 ml-12 italic uppercase tracking-widest font-bold">
               *Indicative data based on CII MSME Energy Assessment Programme outcomes
             </p>
           </div>
 
           {/* ── Right Panel ──────────────────────────────────────────────── */}
-          <div className="w-full lg:w-[35%] pl-8 flex flex-col gap-8 lg:border-l border-[#2d5a2d]/30">
+          <div className="w-full lg:w-[35%] pl-8 flex flex-col gap-8 lg:border-l" style={{ borderColor: colors.mid }}>
 
             {/* KPI Cards */}
             <div>
-              <h3 className="text-[15px] font-semibold text-[#162b16] mb-5 underline decoration-1 underline-offset-4 decoration-[#2d5a2d]/40">
+              <h3 
+                className="text-[11px] font-black uppercase tracking-widest mb-6 border-b pb-2"
+                style={{ color: colors.primary, borderColor: colors.mid }}
+              >
                 Telangana Programme Summary
               </h3>
               <div className="grid grid-cols-2 gap-4">
@@ -224,40 +242,43 @@ export function RenewableEnergyProgress() {
                   icon={<Users className="w-5 h-5" />}
                   value="12,500+"
                   title="MSMEs Reached"
-                  description="Number of enterprises engaged through outreach, awareness campaigns, and capacity-building initiatives."
-                  bg="#DBEAFE"
-                  textColor="#1E40AF"
+                  description="Targeted outreach for awareness and capacity building."
+                  bg={colors.light}
+                  textColor={colors.accent}
                 />
                 <KPICard
                   icon={<ClipboardCheck className="w-5 h-5" />}
                   value="3,240"
                   title="EoIs Received"
-                  description="Total number of MSMEs that have shown interest in adopting green practices."
-                  bg="#FEF3C7"
-                  textColor="#92400E"
+                  description="Total MSMEs expressing interest in greening."
+                  bg={colors.light}
+                  textColor={colors.accent}
                 />
                 <KPICard
                   icon={<Zap className="w-5 h-5" />}
                   value="1,850"
-                  title="RECP Assessments"
-                  description="Number of Resource Efficient and Cleaner Production (RECP) assessments conducted."
-                  bg="#D1FAE5"
-                  textColor="#065F46"
+                  title="Assessments"
+                  description="Resource Efficient & Cleaner Production (RECP) completed."
+                  bg={colors.light}
+                  textColor={colors.accent}
                 />
                 <KPICard
                   icon={<Leaf className="w-5 h-5" />}
                   value="2.4M t"
                   title="CO₂ Reduction"
-                  description="Projected reduction in greenhouse gas emissions through recommended interventions."
-                  bg="#EDE9FE"
-                  textColor="#5B21B6"
+                  description="Projected reduction through recommendations."
+                  bg={colors.light}
+                  textColor={colors.accent}
                 />
               </div>
             </div>
 
             {/* Sector breakdown */}
             <div>
-              <h3 className="text-[15px] font-semibold text-[#162b16] mb-5 underline decoration-1 underline-offset-4 decoration-[#2d5a2d]/40">
+              <h3 
+                className="text-[11px] font-black uppercase tracking-widest mb-6 border-b pb-2"
+                style={{ color: colors.primary, borderColor: colors.mid }}
+              >
                 Sector-wise Energy Saved (GWh)
               </h3>
               <div className="space-y-4">
@@ -290,7 +311,7 @@ export function RenewableEnergyProgress() {
             </div>
 
             <div className="text-right">
-              <span className="text-[10px] font-bold text-[#3d6b3d]">Source: CII · Telangana MSME Energy Assessment Programme</span>
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Source: CII · Telangana MSME Programme</span>
             </div>
           </div>
         </div>
@@ -301,11 +322,11 @@ export function RenewableEnergyProgress() {
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function LegendItem({ color, label }: { color: string; label: string }) {
+function LegendItem({ color, label, textStyle }: { color: string; label: string; textStyle?: React.CSSProperties }) {
   return (
     <div className="flex items-center gap-1.5">
       <div className="w-3.5 h-3.5 rounded-[2px]" style={{ backgroundColor: color }} />
-      <span className="text-[#2d5a2d]">{label}</span>
+      <span style={textStyle}>{label}</span>
     </div>
   );
 }

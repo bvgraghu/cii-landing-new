@@ -7,6 +7,7 @@ import {
   Tooltip, ResponsiveContainer, AreaChart, Area
 } from "recharts";
 import { Zap, IndianRupee, Leaf, Droplets, MapPin, TrendingUp, Info, Activity, Users, ClipboardCheck } from "lucide-react";
+import { useAppTheme } from "@/context/theme-context";
 
 /* ─── Map Constants ───────────────────────────────────────────────────────── */
 
@@ -114,6 +115,7 @@ function ChartTooltip({ active, payload, label }: any) {
 }
 
 export function MSMEEnergyImpact() {
+  const { theme, colors } = useAppTheme();
   const [hoveredDistrict, setHoveredDistrict] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const [svgLoaded, setSvgLoaded] = useState(false);
@@ -157,8 +159,8 @@ export function MSMEEnergyImpact() {
         // Style Paths
         svg.querySelectorAll("path[name]").forEach(path => {
           const el = path as SVGPathElement;
-          el.style.fill = "#a7f3d0"; // Emerald 200 (Green by default)
-          el.style.stroke = "#10b981"; // Emerald 500
+          el.style.fill = colors.mid; 
+          el.style.stroke = colors.primary;
           el.style.strokeWidth = "0.8";
           el.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
           el.style.cursor = "pointer";
@@ -167,16 +169,16 @@ export function MSMEEnergyImpact() {
             const svgName = el.getAttribute("name") || "";
             const districtName = SVG_NAME_TO_DISTRICT[svgName] || svgName;
             setHoveredDistrict(districtName);
-            el.style.fill = "#10b981"; // Emerald 500
-            el.style.stroke = "#064e3b"; // Emerald 900
-            el.style.filter = "drop-shadow(0 0 12px rgba(16, 185, 129, 0.4)) translate(0, -2px)";
+            el.style.fill = colors.primary;
+            el.style.stroke = colors.accent;
+            el.style.filter = `drop-shadow(0 0 12px ${colors.primary}66) translate(0, -2px)`;
             el.style.zIndex = "50";
           });
 
           el.addEventListener("mouseleave", () => {
             setHoveredDistrict(null);
-            el.style.fill = "#a7f3d0";
-            el.style.stroke = "#10b981";
+            el.style.fill = colors.mid;
+            el.style.stroke = colors.primary;
             el.style.filter = "";
             el.style.zIndex = "1";
           });
@@ -193,17 +195,20 @@ export function MSMEEnergyImpact() {
   if (!mounted) return null;
 
   return (
-    <section className="w-full bg-white py-24 px-6 md:px-12 font-sans border-t border-slate-100 overflow-hidden relative">
-      <div className="max-w-[1500px] mx-auto relative z-10">
+    <section className="w-full py-24 px-6 md:px-12 font-sans border-t border-slate-100 overflow-hidden relative transition-colors duration-700" style={{ backgroundColor: colors.light }}>
+      <div className="max-w-[1400px] mx-auto relative z-10">
 
         {/* Header Section */}
         <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in">
+          <div 
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in"
+            style={{ backgroundColor: colors.light, color: colors.primary }}
+          >
             <Activity size={12} className="animate-pulse" />
             Live Impact Dashboard
           </div>
           <h2 className="text-3xl font-black text-slate-800 tracking-tight leading-none italic">
-            Telangana MSME Energy <span className="text-emerald-500">Excellence Hub</span>
+            Telangana MSME Energy <span style={{ color: colors.primary }}>Excellence Hub</span>
           </h2>
           <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
             Interactive District-wise efficiency reporting · FY 2020-25
@@ -233,20 +238,24 @@ export function MSMEEnergyImpact() {
                   initial={{ opacity: 0, x: -20, scale: 0.9 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
                   exit={{ opacity: 0, x: -20, scale: 0.9 }}
-                  className="absolute top-0 right-0 lg:-right-8 bg-white/80 backdrop-blur-xl border border-emerald-100 p-6 rounded-3xl shadow-2xl shadow-emerald-500/10 min-w-[220px]"
+                  className="absolute top-0 right-0 lg:-right-8 bg-white/80 backdrop-blur-xl border p-6 rounded-3xl shadow-2xl min-w-[220px]"
+                  style={{ borderColor: colors.mid + '44', boxShadow: `0 20px 50px ${colors.primary}11` }}
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                    <div 
+                      className="w-10 h-10 rounded-2xl text-white flex items-center justify-center shadow-lg"
+                      style={{ backgroundColor: colors.primary, boxShadow: `0 10px 20px ${colors.primary}44` }}
+                    >
                       <MapPin size={20} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest leading-none">Current District</p>
+                      <p className="text-[10px] font-black uppercase tracking-widest leading-none" style={{ color: colors.primary }}>Current District</p>
                       <h3 className="text-xl font-black text-slate-900 tracking-tighter">{hoveredDistrict}</h3>
                     </div>
                   </div>
                   <div className="space-y-3">
-                    <DistrictStat label="Efficiency Rank" val="#04" />
-                    <DistrictStat label="MSME Clusters" val="124" />
+                    <DistrictStat label="Efficiency Rank" val="#04" colors={colors} />
+                    <DistrictStat label="MSME Clusters" val="124" colors={colors} />
                   </div>
                 </motion.div>
               )}
@@ -258,27 +267,30 @@ export function MSMEEnergyImpact() {
             <div className="flex items-center justify-between px-2">
               <div>
                 <h3 className="text-lg font-black text-slate-800 tracking-tight leading-none italic">
-                  Efficiency Trends <span className="text-emerald-400">· {hoveredDistrict || "Telangana Total"}</span>
+                  Efficiency Trends <span style={{ color: colors.primary }}>· {hoveredDistrict || "Telangana Total"}</span>
                 </h3>
                 <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1.5">Historical impact growth over 5 years</p>
               </div>
               <div className="flex gap-4">
-                <LegendItem color="#16a34a" label="Energy" />
-                <LegendItem color="#d97706" label="Cost" />
+                <LegendItem color={colors.primary} label="Energy" />
+                <LegendItem color={colors.accent} label="Impact" />
               </div>
             </div>
 
-            <div className="flex-1 bg-slate-50/50 rounded-[2.5rem] p-8 border border-white shadow-[inset_0_2px_10px_rgba(0,0,0,0.02)]">
+            <div 
+              className="flex-1 rounded-[2.5rem] p-8 border shadow-[inset_0_2px_10px_rgba(0,0,0,0.02)] transition-all duration-700"
+              style={{ backgroundColor: `${colors.mid}22`, borderColor: colors.mid }}
+            >
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={currentTrendData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                   <defs>
                     <linearGradient id="gEnergy" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#16a34a" stopOpacity={0.15} />
-                      <stop offset="95%" stopColor="#16a34a" stopOpacity={0} />
+                      <stop offset="5%" stopColor={colors.primary} stopOpacity={0.15} />
+                      <stop offset="95%" stopColor={colors.primary} stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="gCost" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#d97706" stopOpacity={0.15} />
-                      <stop offset="95%" stopColor="#d97706" stopOpacity={0} />
+                      <stop offset="5%" stopColor={colors.accent} stopOpacity={0.15} />
+                      <stop offset="95%" stopColor={colors.accent} stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.03)" />
@@ -296,16 +308,16 @@ export function MSMEEnergyImpact() {
                   />
                   <Tooltip content={<ChartTooltip />} />
                   <Area
-                    type="monotone" dataKey="energy" name="Energy Savings" stroke="#16a34a" strokeWidth={3}
+                    type="monotone" dataKey="energy" name="Energy Savings" stroke={colors.primary} strokeWidth={3}
                     fill="url(#gEnergy)"
-                    dot={{ r: 4, fill: "#fff", strokeWidth: 3, stroke: "#16a34a" }}
-                    activeDot={{ r: 6, strokeWidth: 0, fill: "#16a34a" }}
+                    dot={{ r: 4, fill: "#fff", strokeWidth: 3, stroke: colors.primary }}
+                    activeDot={{ r: 6, strokeWidth: 0, fill: colors.primary }}
                   />
                   <Area
-                    type="monotone" dataKey="cost" name="Cost Savings" stroke="#d97706" strokeWidth={3}
+                    type="monotone" dataKey="cost" name="Impact Value" stroke={colors.accent} strokeWidth={3}
                     fill="url(#gCost)"
-                    dot={{ r: 4, fill: "#fff", strokeWidth: 3, stroke: "#d97706" }}
-                    activeDot={{ r: 6, strokeWidth: 0, fill: "#d97706" }}
+                    dot={{ r: 4, fill: "#fff", strokeWidth: 3, stroke: colors.accent }}
+                    activeDot={{ r: 6, strokeWidth: 0, fill: colors.accent }}
                   />
                 </AreaChart>
               </ResponsiveContainer>
@@ -314,9 +326,13 @@ export function MSMEEnergyImpact() {
         </div>
 
         {/* ── BOTTOM KPI CARDS: Total Telangana ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16 p-8 bg-slate-50/80 backdrop-blur-lg rounded-[3rem] border border-white">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16 p-8 rounded-[3rem] border transition-all duration-700" style={{ backgroundColor: `${colors.mid}22`, borderColor: colors.mid }}>
           {TOTAL_KPI_DATA.map((kpi) => (
-            <div key={kpi.id} className="relative group p-6 rounded-[2rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
+            <div 
+              key={kpi.id} 
+              className="relative group p-6 rounded-[2rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+              style={{ borderColor: colors.mid + '44' }}
+            >
               <div className="absolute top-4 right-4 text-slate-100 group-hover:text-slate-200 transition-colors">
                 {kpi.id === 'awareness' && <Users size={48} />}
                 {kpi.id === 'eoi' && <Activity size={48} />}
@@ -367,11 +383,11 @@ function LegendItem({ color, label }: { color: string; label: string }) {
   );
 }
 
-function DistrictStat({ label, val }: { label: string; val: string }) {
+function DistrictStat({ label, val, colors }: { label: string; val: string, colors: any }) {
   return (
-    <div className="flex items-center justify-between gap-4 border-b border-emerald-50 pb-2 last:border-0 last:pb-0">
+    <div className="flex items-center justify-between gap-4 border-b pb-2 last:border-0 last:pb-0" style={{ borderBottomColor: colors.mid + '44' }}>
       <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{label}</span>
-      <span className="text-sm font-black text-emerald-600">{val}</span>
+      <span className="text-sm font-black" style={{ color: colors.primary }}>{val}</span>
     </div>
   );
 }
