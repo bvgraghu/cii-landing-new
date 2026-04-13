@@ -352,7 +352,7 @@ function KPICard({
       }}
     >
       <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-1 shadow-sm" style={{ backgroundColor: `${textColor}22`, color: textColor }}>
-        {React.cloneElement(icon as React.ReactElement, { size: 24 })}
+        {React.cloneElement(icon as React.ReactElement<{ size?: number }>, { size: 24 })}
       </div>
       <div>
         <p 
