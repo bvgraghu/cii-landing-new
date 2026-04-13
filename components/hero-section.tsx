@@ -20,7 +20,7 @@ export function HeroSection() {
             src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=2670&auto=format&fit=crop"
             alt="Wind turbines representing clean energy"
             fill
-            className="object-cover opacity-[0.04] grayscale"
+            className="object-cover opacity-[0.12] transition-opacity duration-700"
             priority
           />
           {/* Subtle grid overlay */}
