@@ -54,7 +54,7 @@ export function EOIAssessmentDashboard() {
   const [scrollPhase, setScrollPhase] = useState(0);
 
   useEffect(() => {
-    return scrollYProgress.onChange((v: number) => {
+    return scrollYProgress.on("change", (v: number) => {
       let phase = Math.floor(v * 11);
       if (phase > 10) phase = 10;
       setScrollPhase(phase);
@@ -282,23 +282,35 @@ export function EOIAssessmentDashboard() {
   };
 
   return (
-    <section ref={containerRef} className="w-full relative transition-colors duration-700" id="impact-dashboard" style={{ height: "400vh", backgroundColor: colors.light }}>
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden py-4 md:py-10 px-4 md:px-12">
+    <section ref={containerRef} className="w-full relative transition-colors duration-700" id="impact-dashboard" style={{ height: "300vh", backgroundColor: colors.sectionBg }}>
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden py-2 md:py-3 px-4 md:px-12">
         <div className="max-w-[1500px] w-full mx-auto flex flex-col h-full items-center justify-center">
 
           {/* Header */}
-          <div className="flex flex-col md:flex-row items-end justify-between border-b border-slate-200 pb-4 mb-4 w-full">
+          <div className="flex flex-col md:flex-row items-end justify-between border-b border-slate-200 pb-1 mb-1 w-full transition-colors duration-700">
             <div className="w-full md:w-auto">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-none italic mb-1 md:mb-2">
+              <h2 
+                className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight leading-none italic mb-0.5 md:mb-0.5 transition-colors duration-700"
+                style={{ color: colors.sectionBg === '#ffffff' ? '#0f172a' : '#f8fafc' }}
+              >
                 Sectoral <span style={{ color: colors.primary }}>Coverage Map</span>
               </h2>
-              <p className="text-[10px] md:text-sm font-black text-slate-400 uppercase tracking-[0.2em]">
+              <p 
+                className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] transition-colors duration-700"
+                style={{ color: colors.sectionBg === '#ffffff' ? '#94a3b8' : '#cbd5e1' }}
+              >
                 Interactive visualization showcasing MSME distribution across sectors.
               </p>
             </div>
             <div className="hidden md:block text-right">
-              <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest bg-white/50 backdrop-blur-md shadow-sm border border-slate-100 px-6 py-2 rounded-full mt-4 md:mt-0 max-w-sm ml-auto">
-                <span style={{ color: colors.primary }} className="text-lg">↓</span> <span style={{ color: colors.primary }}>Scroll slowly</span> to build the tree, or click to Zoom.
+              <p 
+                className="text-[9px] font-black uppercase tracking-widest backdrop-blur-md shadow-sm border border-slate-100 px-4 py-1.5 rounded-full mt-4 md:mt-0 max-w-sm ml-auto transition-colors duration-700"
+                style={{ 
+                  backgroundColor: colors.sectionBg === '#ffffff' ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.05)',
+                  color: colors.sectionBg === '#ffffff' ? '#94a3b8' : '#cbd5e1'
+                }}
+              >
+                <span style={{ color: colors.primary }} className="text-base">↓</span> <span style={{ color: colors.primary }}>Scroll slowly</span> to build the tree.
               </p>
             </div>
           </div>

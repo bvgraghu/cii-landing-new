@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid,
-  Tooltip, ResponsiveContainer, AreaChart, Area
+  Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar
 } from "recharts";
 import { Zap, IndianRupee, Leaf, Droplets, MapPin, TrendingUp, Info, Activity, Users, ClipboardCheck } from "lucide-react";
 import { useAppTheme } from "@/context/theme-context";
@@ -195,176 +195,222 @@ export function MSMEEnergyImpact() {
   if (!mounted) return null;
 
   return (
-    <section className="w-full py-24 px-6 md:px-12 font-sans border-t border-slate-100 overflow-hidden relative transition-colors duration-700" style={{ backgroundColor: colors.light }}>
+    <section className="w-full py-6 px-6 md:px-12 font-sans border-t border-slate-100 overflow-hidden relative transition-colors duration-700" style={{ backgroundColor: colors.sectionBg }}>
       <div className="max-w-[1400px] mx-auto relative z-10">
 
         {/* Header Section */}
-        <div className="text-center mb-16 space-y-4">
+        <div className="text-center mb-4 space-y-1 transition-colors duration-700">
           <div 
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in"
-            style={{ backgroundColor: colors.light, color: colors.primary }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.2em] animate-fade-in transition-colors duration-700"
+            style={{ 
+              backgroundColor: colors.sectionBg === '#ffffff' ? colors.light : `${colors.light}22`, 
+              color: colors.primary 
+            }}
           >
-            <Activity size={12} className="animate-pulse" />
-            Live Impact Dashboard
+            <Activity size={10} className="animate-pulse" />
+            Strategic Impact Analysis
           </div>
-          <h2 className="text-3xl font-black text-slate-800 tracking-tight leading-none italic">
-            Telangana MSME Energy <span style={{ color: colors.primary }}>Excellence Hub</span>
+          <h2 
+            className="text-2xl font-black tracking-tight leading-none italic transition-colors duration-700"
+            style={{ color: colors.sectionBg === '#ffffff' ? '#1e293b' : '#f8fafc' }}
+          >
+            Telangana MSME Industrial <span style={{ color: colors.primary }}>Decarbonization Pathway</span>
           </h2>
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-            Interactive District-wise efficiency reporting · FY 2020-25
+          <p 
+            className="text-[10px] font-bold uppercase tracking-widest leading-none opacity-70 transition-colors duration-700"
+            style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#cbd5e1' }}
+          >
+            Comparative Sectoral Emissions · Before vs After Intervention
           </p>
         </div>
 
         {/* ── MAIN CONTENT ── */}
-        <div className="flex flex-col lg:flex-row gap-12 items-center">
+        <div className="flex flex-col lg:flex-row gap-6 items-stretch min-h-[450px]">
 
-          {/* LEFT: Map Container */}
-          <div className="w-full lg:w-[45%] relative group">
-            <div className="absolute -inset-4 bg-emerald-50/30 rounded-[3rem] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -z-10" />
-
-            {!svgLoaded && (
-              <div className="flex flex-col items-center justify-center gap-4 h-[460px]">
-                <div className="w-8 h-8 border-4 border-emerald-100 border-t-emerald-500 rounded-full animate-spin" />
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Constructing Map...</p>
-              </div>
-            )}
-
-            <div ref={svgContainerRef} className="w-full h-full max-w-[420px] mx-auto animate-fade-in flex items-center justify-center overflow-visible" />
-
-            {/* District Callout Overlay */}
-            <AnimatePresence>
-              {hoveredDistrict && (
-                <motion.div
-                  initial={{ opacity: 0, x: -20, scale: 0.9 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: -20, scale: 0.9 }}
-                  className="absolute top-0 right-0 lg:-right-8 bg-white/80 backdrop-blur-xl border p-6 rounded-3xl shadow-2xl min-w-[220px]"
-                  style={{ borderColor: colors.mid + '44', boxShadow: `0 20px 50px ${colors.primary}11` }}
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div 
-                      className="w-10 h-10 rounded-2xl text-white flex items-center justify-center shadow-lg"
-                      style={{ backgroundColor: colors.primary, boxShadow: `0 10px 20px ${colors.primary}44` }}
-                    >
-                      <MapPin size={20} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest leading-none" style={{ color: colors.primary }}>Current District</p>
-                      <h3 className="text-xl font-black text-slate-900 tracking-tighter">{hoveredDistrict}</h3>
-                    </div>
+          {/* LEFT: Emissions Chart */}
+          <div className="w-full lg:w-[62%] flex flex-col gap-4">
+            <div className="flex items-center justify-between px-2 transition-colors duration-700">
+               <div>
+                  <h3 
+                    className="text-base font-black tracking-tight leading-none italic transition-colors duration-700"
+                    style={{ color: colors.sectionBg === '#ffffff' ? '#1e293b' : '#f8fafc' }}
+                  >
+                    Sectoral <span style={{ color: colors.primary }}>Emissions</span>
+                  </h3>
+                  <p 
+                    className="text-[8px] font-bold uppercase tracking-widest mt-1 opacity-70 transition-colors duration-700"
+                    style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#cbd5e1' }}
+                  >Status: Before vs After Greening</p>
+               </div>
+               <div className="flex gap-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: colors.sectionBg === '#ffffff' ? '#e2e8f0' : '#334155' }} />
+                    <span 
+                      className="text-[9px] font-bold uppercase tracking-widest opacity-80 transition-colors duration-700"
+                      style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#94a3b8' }}
+                    >Before</span>
                   </div>
-                  <div className="space-y-3">
-                    <DistrictStat label="Efficiency Rank" val="#04" colors={colors} />
-                    <DistrictStat label="MSME Clusters" val="124" colors={colors} />
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: colors.accent }} />
+                    <span 
+                      className="text-[9px] font-bold uppercase tracking-widest opacity-80 transition-colors duration-700"
+                      style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#94a3b8' }}
+                    >After</span>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* RIGHT: Chart Container */}
-          <div className="w-full lg:w-[55%] flex flex-col gap-8 h-[500px]">
-            <div className="flex items-center justify-between px-2">
-              <div>
-                <h3 className="text-lg font-black text-slate-800 tracking-tight leading-none italic">
-                  Efficiency Trends <span style={{ color: colors.primary }}>· {hoveredDistrict || "Telangana Total"}</span>
-                </h3>
-                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1.5">Historical impact growth over 5 years</p>
-              </div>
-              <div className="flex gap-4">
-                <LegendItem color={colors.primary} label="Energy" />
-                <LegendItem color={colors.accent} label="Impact" />
-              </div>
+               </div>
             </div>
 
             <div 
-              className="flex-1 rounded-[2.5rem] p-8 border shadow-[inset_0_2px_10px_rgba(0,0,0,0.02)] transition-all duration-700"
-              style={{ backgroundColor: `${colors.mid}22`, borderColor: colors.mid }}
+              className="flex-1 rounded-[1.5rem] p-6 border shadow-sm transition-all duration-700"
+              style={{ 
+                borderColor: colors.mid,
+                backgroundColor: colors.sectionBg === '#ffffff' ? '#ffffff' : `${colors.light}33`
+              }}
             >
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={currentTrendData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="gEnergy" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor={colors.primary} stopOpacity={0.15} />
-                      <stop offset="95%" stopColor={colors.primary} stopOpacity={0} />
-                    </linearGradient>
-                    <linearGradient id="gCost" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor={colors.accent} stopOpacity={0.15} />
-                      <stop offset="95%" stopColor={colors.accent} stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.03)" />
-                  <XAxis
-                    dataKey="fy"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 700 }}
-                    dy={10}
-                  />
-                  <YAxis
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fill: "#94a3b8", fontSize: 11 }}
-                  />
-                  <Tooltip content={<ChartTooltip />} />
-                  <Area
-                    type="monotone" dataKey="energy" name="Energy Savings" stroke={colors.primary} strokeWidth={3}
-                    fill="url(#gEnergy)"
-                    dot={{ r: 4, fill: "#fff", strokeWidth: 3, stroke: colors.primary }}
-                    activeDot={{ r: 6, strokeWidth: 0, fill: colors.primary }}
-                  />
-                  <Area
-                    type="monotone" dataKey="cost" name="Impact Value" stroke={colors.accent} strokeWidth={3}
-                    fill="url(#gCost)"
-                    dot={{ r: 4, fill: "#fff", strokeWidth: 3, stroke: colors.accent }}
-                    activeDot={{ r: 6, strokeWidth: 0, fill: colors.accent }}
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-
-        {/* ── BOTTOM KPI CARDS: Total Telangana ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16 p-8 rounded-[3rem] border transition-all duration-700" style={{ backgroundColor: `${colors.mid}22`, borderColor: colors.mid }}>
-          {TOTAL_KPI_DATA.map((kpi) => (
-            <div 
-              key={kpi.id} 
-              className="relative group p-6 rounded-[2rem] bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
-              style={{ borderColor: colors.mid + '44' }}
-            >
-              <div className="absolute top-4 right-4 text-slate-100 group-hover:text-slate-200 transition-colors">
-                {kpi.id === 'awareness' && <Users size={48} />}
-                {kpi.id === 'eoi' && <Activity size={48} />}
-                {kpi.id === 'recp' && <ClipboardCheck size={48} />}
-                {kpi.id === 'co2' && <Leaf size={48} />}
-              </div>
-
-              <div className="relative z-10 flex flex-col gap-1">
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:rotate-12"
-                  style={{ backgroundColor: `${kpi.color}15`, color: kpi.color }}
+                <BarChart 
+                  data={[
+                    { sector: "Eng/Metals", before: 420, after: 215 },
+                    { sector: "Pharma", before: 385, after: 190 },
+                    { sector: "Food Proc.", before: 290, after: 145 },
+                    { sector: "Textiles", before: 310, after: 160 },
+                    { sector: "Chemicals", before: 260, after: 130 },
+                    { sector: "Plastics", before: 220, after: 110 },
+                    { sector: "Foundry", before: 450, after: 225 },
+                    { sector: "Rice Mills", before: 180, after: 90 },
+                    { sector: "Others", before: 140, after: 85 },
+                  ]} 
+                  margin={{ top: 5, right: 5, left: -25, bottom: 0 }}
                 >
-                  {kpi.icon}
-                </div>
-                <p className="text-[10px] font-black uppercase tracking-[0.1em] text-slate-500 line-clamp-1">{kpi.label}</p>
-                <div className="flex items-baseline gap-1.5 mt-1">
-                  <span className="text-3xl font-black text-slate-900 tracking-tighter italic">{kpi.value}</span>
-                  {kpi.unit && <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{kpi.unit}</span>}
-                </div>
-                <p className="text-[10px] text-slate-500 font-medium mt-3 leading-[1.35] opacity-80 border-t border-slate-100 pt-3">
-                  {kpi.desc}
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={colors.sectionBg === '#ffffff' ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.05)"} />
+                  <XAxis 
+                    dataKey="sector" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: colors.sectionBg === '#ffffff' ? "#64748b" : "#94a3b8", fontSize: 8, fontWeight: 800 }} 
+                  />
+                  <YAxis 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: colors.sectionBg === '#ffffff' ? "#64748b" : "#94a3b8", fontSize: 9 }}
+                  />
+                  <Tooltip 
+                    cursor={{ fill: colors.sectionBg === '#ffffff' ? 'rgba(0,0,0,0.02)' : 'rgba(255,255,255,0.02)' }}
+                    contentStyle={{ 
+                      borderRadius: '8px', 
+                      border: 'none', 
+                      fontSize: '11px', 
+                      boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+                      backgroundColor: colors.sectionBg === '#ffffff' ? '#ffffff' : colors.mid,
+                      color: colors.sectionBg === '#ffffff' ? '#1e293b' : '#f8fafc'
+                    }}
+                  />
+                  <Bar dataKey="before" name="Before (tCO2e)" fill={colors.sectionBg === '#ffffff' ? "#e2e8f0" : "#334155"} radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="after" name="After (tCO2e)" fill={colors.accent} radius={[2, 2, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+              
+              <div 
+                className="mt-4 p-3 rounded-xl border flex items-start gap-2 transition-colors duration-700"
+                style={{ 
+                  backgroundColor: colors.sectionBg === '#ffffff' ? '#eef2ff' : `${colors.primary}11`,
+                  borderColor: colors.sectionBg === '#ffffff' ? '#e0e7ff' : `${colors.primary}33`
+                }}
+              >
+                <Leaf size={14} className="mt-0.5 shrink-0" style={{ color: colors.primary }} />
+                <p 
+                  className="text-[10px] font-semibold leading-normal transition-colors duration-700"
+                  style={{ color: colors.sectionBg === '#ffffff' ? '#312e81' : '#cbd5e1' }}
+                >
+                  Decarbonization strategy aiming for a <span style={{ color: colors.accent }} className="font-black">50%+ reduction</span> in carbon across high-impact sectors.
                 </p>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* RIGHT: Resource Metrics Chart */}
+          <div className="w-full lg:w-[38%] flex flex-col gap-4">
+            <div className="flex items-center justify-between px-2 transition-colors duration-700">
+              <div>
+                <h3 
+                  className="text-base font-black tracking-tight leading-none italic transition-colors duration-700"
+                  style={{ color: colors.sectionBg === '#ffffff' ? '#1e293b' : '#f8fafc' }}
+                >
+                  Sustainability <span style={{ color: colors.primary }}>Dashboard</span>
+                </h3>
+              </div>
+            </div>
+
+            <div 
+              className="flex-1 rounded-[1.5rem] p-8 border shadow-sm transition-all duration-700 flex flex-col justify-around gap-4"
+              style={{ 
+                backgroundColor: colors.sectionBg === '#ffffff' ? '#ffffff' : `${colors.light}33`, 
+                borderColor: colors.mid 
+              }}
+            >
+              {[
+                { label: "Specific Energy Reduction", val: "24.5%", icon: <Zap size={18} />, sub: "Goal: 30%", color: colors.primary, pct: 81 },
+                { label: "Water Withdrawal Savings", val: "38.2%", icon: <Droplets size={18} />, sub: "Goal: 50%", color: "#0ea5e9", pct: 76 },
+                { label: "Waste-to-Resource Rate", val: "62.0%", icon: <TrendingUp size={18} />, sub: "Goal: 85%", color: colors.accent, pct: 72 },
+                { label: "Renewable Energy Mix", val: "18.5%", icon: <Leaf size={18} />, sub: "Goal: 40%", color: "#10b981", pct: 46 },
+              ].map((m, i) => (
+                <div key={i} className="flex flex-col gap-2">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg" style={{ backgroundColor: `${m.color}22`, color: m.color }}>{m.icon}</div>
+                    <div>
+                      <p 
+                        className="text-[8px] font-black uppercase tracking-widest mb-0.5 transition-colors duration-700 opacity-60"
+                        style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#cbd5e1' }}
+                      >{m.label}</p>
+                      <p 
+                        className="text-xl font-black tracking-tight italic leading-none transition-colors duration-700"
+                        style={{ color: colors.sectionBg === '#ffffff' ? '#0f172a' : '#f8fafc' }}
+                      >{m.val}</p>
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <div 
+                      className="h-1.5 w-full rounded-full overflow-hidden flex transition-colors duration-700"
+                      style={{ backgroundColor: colors.sectionBg === '#ffffff' ? '#f1f5f9' : '#1e293b' }}
+                    >
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ width: `${m.pct}%` }}
+                        transition={{ duration: 1.5, delay: i * 0.2 }}
+                        className="h-full rounded-full" 
+                        style={{ backgroundColor: m.color }} 
+                      />
+                    </div>
+                    <div 
+                      className="flex justify-between items-center text-[8px] font-bold uppercase tracking-widest opacity-60 transition-colors duration-700"
+                      style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#94a3b8' }}
+                    >
+                      <span>Progress</span>
+                      <span style={{ color: m.color }}>{m.sub}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Branding Footer */}
-        <div className="text-center mt-12 py-8 border-t border-slate-100">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-300">
-            CII Telangana MSME Energy Excellence Report · Strategic Impact
-          </p>
+        <div className="mt-10 pt-4 border-t border-slate-100/10 flex items-center justify-between">
+            <div className="flex items-center gap-8 opacity-40 grayscale hover:grayscale-0 transition-all cursor-crosshair">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="GOI" className="h-4" style={{ filter: colors.sectionBg === '#ffffff' ? 'none' : 'invert(1)' }} />
+                 <div className="h-4 w-px bg-slate-300" />
+                 <span 
+                    className="text-[9px] font-black uppercase tracking-[0.2em] transition-colors duration-700"
+                    style={{ color: colors.sectionBg === '#ffffff' ? '#1e293b' : '#ffffff' }}
+                 >
+                   Sustainability Portal · GoI Initiative
+                 </span>
+            </div>
+            <div className="flex gap-4">
+                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: colors.primary }} />
+                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: colors.accent }} />
+            </div>
         </div>
       </div>
 

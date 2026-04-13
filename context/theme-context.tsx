@@ -2,51 +2,37 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-type ThemeType = 'green' | 'blue' | 'teal' | 'slate' | 'indigo' | 'forest';
+type ThemeType = 'midnight' | 'forest' | 'carbon';
 
 interface ThemeColors {
   primary: string;
   accent: string;
   mid: string;
   light: string;
+  sectionBg: string;
 }
 
 const themePalettes: Record<ThemeType, ThemeColors> = {
-  green: {
-    primary: "#10b981", // Emerald 500
-    accent: "#065f46",  // Emerald 800
-    mid: "#a7f3d0",     // Emerald 200
-    light: "#f0fdf4",   // Emerald 50
-  },
-  blue: {
-    primary: "#3b82f6", // Blue 500
-    accent: "#1e40af",  // Blue 800
-    mid: "#bfdbfe",     // Blue 200
-    light: "#eff6ff",   // Blue 50
-  },
-  teal: {
-    primary: "#14b8a6", // Teal 500
-    accent: "#0f766e",  // Teal 700
-    mid: "#99f6e4",     // Teal 200
-    light: "#f0fdfa",   // Teal 50
-  },
-  slate: {
-    primary: "#475569", // Slate 600
-    accent: "#0f172a",  // Slate 900
-    mid: "#e2e8f0",     // Slate 200
-    light: "#f8faff",   // Slate 50 w/ blue tint
-  },
-  indigo: {
-    primary: "#4f46e5", // Indigo 600
-    accent: "#312e81",  // Indigo 900
-    mid: "#e0e7ff",     // Indigo 100
-    light: "#f5f7ff",   // Indigo 50
+  midnight: {
+    primary: "#6366f1", // Indigo 500
+    accent: "#818cf8",  // Indigo 400 (lighter for readability)
+    mid: "#1e1b4b",     // Indigo 950
+    light: "#334155",   // Slate 700 (for secondary text)
+    sectionBg: "#0c0d1e", // Deep Navy Black
   },
   forest: {
-    primary: "#15803d", // Green 700
-    accent: "#064e3b",  // Green 950
-    mid: "#bbf7d0",     // Green 200
-    light: "#f0fdf4",   // Green 50
+    primary: "#10b981", // Emerald 500
+    accent: "#34d399",  // Emerald 400
+    mid: "#064e3b",     // Green 950
+    light: "#065f46",   // Green 800
+    sectionBg: "#022c22", // Very dark forest green
+  },
+  carbon: {
+    primary: "#ffffff", // High contrast white
+    accent: "#10b981",  // Emerald 500 accent
+    mid: "#27272a",     // Zinc 800
+    light: "#52525b",   // Zinc 600
+    sectionBg: "#09090b", // Absolute dark
   }
 };
 
@@ -59,7 +45,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeType>('green');
+  const [theme, setThemeState] = useState<ThemeType>('midnight');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('app-theme') as ThemeType;

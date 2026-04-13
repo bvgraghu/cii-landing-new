@@ -123,28 +123,34 @@ export function RenewableEnergyProgress() {
   if (!mounted) return null;
 
   return (
-    <section className="w-full py-20 px-6 md:px-12 font-sans relative transition-colors duration-700" style={{ backgroundColor: colors.light }}>
+    <section className="w-full py-6 px-6 md:px-12 font-sans relative transition-colors duration-700" style={{ backgroundColor: colors.sectionBg }}>
       <div className="max-w-[1400px] mx-auto">
 
         {/* Download icon */}
         <div 
-          className="absolute top-8 right-12 cursor-pointer p-2 rounded-full transition-colors"
+          className="absolute top-8 right-12 cursor-pointer p-2 rounded-full transition-colors opacity-60 hover:opacity-100"
           style={{ color: colors.accent }}
         >
           <Download className="w-5 h-5" />
         </div>
 
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight leading-none italic">
+        <div className="text-center mb-4 transition-colors duration-700">
+          <h2 
+            className="text-3xl font-black tracking-tight leading-none italic transition-colors duration-700"
+            style={{ color: colors.sectionBg === '#ffffff' ? '#0f172a' : '#f8fafc' }}
+          >
             Telangana Energy <span style={{ color: colors.primary }}>Assessment Report</span>
           </h2>
-          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-3">
+          <p 
+            className="text-[10px] font-bold uppercase tracking-widest mt-1 opacity-70 transition-colors duration-700"
+            style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#cbd5e1' }}
+          >
             MSME sector-wise savings across Telangana · FY 2017-18 to 2024-25
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-0 items-stretch">
+        <div className="flex flex-col lg:flex-row gap-8 items-stretch">
 
           {/* ── Chart ─────────────────────────────────────────────────────── */}
           <div 
@@ -336,14 +342,29 @@ function KPICard({
 }: {
   icon: React.ReactNode; value: string; title: string; description: string; bg: string; textColor: string;
 }) {
+  const { colors } = useAppTheme();
   return (
-    <div className="rounded-2xl px-5 py-4 flex flex-col gap-2" style={{ backgroundColor: bg }}>
-      <div className="flex items-center gap-2" style={{ color: textColor }}>
-        {icon}
-        <p className="text-[10px] font-black uppercase tracking-widest">{title}</p>
+    <div 
+      className="rounded-3xl p-6 flex flex-col gap-3 shadow-sm border transition-all flex-1" 
+      style={{ 
+        backgroundColor: colors.sectionBg === '#ffffff' ? '#ffffff' : `${colors.light}33`,
+        borderColor: colors.mid
+      }}
+    >
+      <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-1 shadow-sm" style={{ backgroundColor: `${textColor}22`, color: textColor }}>
+        {React.cloneElement(icon as React.ReactElement, { size: 24 })}
       </div>
-      <p className="text-3xl font-black leading-none my-1" style={{ color: textColor }}>{value}</p>
-      <p className="text-[10px] font-medium leading-[1.35] opacity-80" style={{ color: textColor }}>{description}</p>
+      <div>
+        <p 
+          className="text-[10px] font-black uppercase tracking-[0.15em] mb-1 opacity-60 transition-colors"
+          style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#cbd5e1' }}
+        >{title}</p>
+        <p className="text-3xl font-black tracking-tight" style={{ color: textColor }}>{value}</p>
+      </div>
+      <p 
+        className="text-[13px] font-semibold leading-relaxed line-clamp-3 transition-colors opacity-70"
+        style={{ color: colors.sectionBg === '#ffffff' ? '#475569' : '#94a3b8' }}
+      >{description}</p>
     </div>
   );
 }
@@ -353,10 +374,14 @@ function HorizontalStat({
 }: {
   value: number; total: number; color: string; label: string; isTotal?: boolean;
 }) {
+  const { colors } = useAppTheme();
   const pct = Math.max(1, (value / total) * 100);
   return (
     <div className="flex items-center gap-3">
-      <div className="w-[96px] shrink-0 text-[11px] text-[#3d6b3d] truncate">{label}</div>
+      <div 
+        className="w-[96px] shrink-0 text-[11px] font-bold truncate transition-colors"
+        style={{ color: colors.sectionBg === '#ffffff' ? '#475569' : '#cbd5e1' }}
+      >{label}</div>
       <div className="flex-1 flex items-center h-[18px]">
         <div
           className="h-full shadow-sm"
@@ -367,7 +392,10 @@ function HorizontalStat({
             borderRadius: "2px",
           }}
         />
-        <span className="ml-2 text-[12px] text-[#162b16] font-semibold whitespace-nowrap">{value} GWh</span>
+        <span 
+          className="ml-2 text-[12px] font-bold transition-colors whitespace-nowrap"
+          style={{ color: colors.sectionBg === '#ffffff' ? '#1e293b' : '#f8fafc' }}
+        >{value} GWh</span>
       </div>
     </div>
   );

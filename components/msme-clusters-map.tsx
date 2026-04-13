@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Factory, Users, TrendingUp, Info } from "lucide-react";
+import { MapPin, Factory, Users, TrendingUp, Info, Award } from "lucide-react";
 import { useAppTheme } from "@/context/theme-context";
 
 /* ─── Map Constants ───────────────────────────────────────────────────────── */
@@ -135,11 +135,11 @@ export function MSMEClustersMap() {
           const hasTop20 = clustersInDistrict.length > 0 && !hasTop5;
           const isHighest = normalizedSvgName === "hyderabad" || normalizedSvgName === "ranga reddy" || normalizedSvgName === "medchal";
 
-          const defaultFill = isHighest ? colors.accent : hasTop5 ? colors.primary : hasTop20 ? colors.mid : colors.light;
-          const defaultStroke = isHighest ? colors.accent : hasTop5 ? colors.primary : hasTop20 ? colors.primary + '44' : colors.mid;
+          const defaultFill = isHighest ? "#1e1b4b" : hasTop5 ? "#312e81" : hasTop20 ? "#3730a3" : "#4338ca";
+          const defaultStroke = "rgba(255, 255, 255, 0.2)";
           
-          const hoverFill = isHighest ? colors.accent : hasTop5 ? colors.primary : hasTop20 ? colors.primary + '88' : colors.mid;
-          const hoverStroke = isHighest ? colors.accent : hasTop5 ? colors.accent : hasTop20 ? colors.primary : colors.primary;
+          const hoverFill = colors.primary;
+          const hoverStroke = colors.accent;
 
           el.style.fill = defaultFill;
           el.style.stroke = defaultStroke;
@@ -178,32 +178,42 @@ export function MSMEClustersMap() {
   if (!mounted) return null;
 
   return (
-    <section id="clusters" className="w-full bg-slate-50 py-24 px-6 md:px-12 font-sans border-t border-slate-200">
+    <section id="clusters" className="w-full py-6 px-6 md:px-12 font-sans border-t border-slate-200 transition-colors duration-700" style={{ backgroundColor: colors.sectionBg }}>
       <div className="max-w-[1400px] mx-auto relative z-10">
 
         {/* Header Section */}
-        <div className="text-center mb-16 space-y-4">
+        <div className="text-center mb-4 space-y-1">
           <div 
-            className="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-sm border"
-            style={{ color: colors.accent, borderColor: colors.mid }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-sm border transition-colors duration-700"
+            style={{ 
+              color: colors.accent, 
+              borderColor: colors.mid,
+              backgroundColor: colors.sectionBg === '#ffffff' ? 'white' : `${colors.light}22`
+            }}
           >
             <Factory size={12} style={{ color: colors.primary }} />
             Geography of Impact
           </div>
-          <h2 className="text-3xl lg:text-4xl font-black text-slate-800 tracking-tight leading-none italic">
+          <h2 
+            className="text-3xl lg:text-4xl font-black tracking-tight leading-none italic transition-colors duration-700"
+            style={{ color: colors.sectionBg === '#ffffff' ? '#1e293b' : '#f8fafc' }}
+          >
             Strategic Action Zones for <span style={{ color: colors.primary }}>Green Transformation</span>
           </h2>
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-widest max-w-2xl mx-auto">
+          <p 
+            className="text-xs font-bold uppercase tracking-widest max-w-2xl mx-auto opacity-70 transition-colors duration-700"
+            style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#94a3b8' }}
+          >
             Mapping resource-intensive manufacturing hubs prioritized for energy efficiency interventions
           </p>
         </div>
 
         {/* ── MAIN CONTENT ── */}
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start h-auto lg:h-[520px]">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start h-auto lg:h-[580px]">
 
           <div 
-            className="w-full lg:w-1/2 h-[450px] lg:h-full relative p-6 lg:p-8 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border transition-all duration-700 overflow-hidden"
-            style={{ backgroundColor: `${colors.mid}11`, borderColor: colors.mid }}
+            className="w-full lg:w-[60%] h-[450px] lg:h-full relative p-6 lg:p-8 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.06)] border transition-all duration-700 overflow-hidden bg-slate-900"
+            style={{ borderColor: "#1e1b4b" }}
             onMouseMove={(e) => {
               const rect = e.currentTarget.getBoundingClientRect();
               setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
@@ -322,7 +332,7 @@ export function MSMEClustersMap() {
           </div>
 
           {/* RIGHT: Selected Info / Global Ranking */}
-          <div className="w-full lg:w-1/2 h-[450px] lg:h-full flex flex-col gap-6">
+          <div className="w-full lg:w-[40%] h-[450px] lg:h-full flex flex-col gap-6">
             
             <AnimatePresence mode="wait">
               {hoveredSvgDistrict && activeClusters.length > 0 ? (
@@ -332,18 +342,22 @@ export function MSMEClustersMap() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.2 }}
-                  className="bg-white rounded-[2.5rem] p-8 shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-slate-100 h-full overflow-y-auto"
-                  style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                  className="rounded-[2.5rem] p-8 shadow-[0_20px_50px_rgba(0,0,0,0.04)] border transition-all duration-700 h-full overflow-y-auto"
+                  style={{ 
+                    scrollbarWidth: "none", 
+                    msOverflowStyle: "none",
+                    backgroundColor: colors.sectionBg === '#ffffff' ? '#ffffff' : `${colors.light}33`,
+                    borderColor: colors.mid
+                  }}
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div 
                       className="w-10 h-10 rounded-2xl flex items-center justify-center transition-colors"
-                      style={{ backgroundColor: colors.light, color: colors.primary }}
+                      style={{ backgroundColor: `${colors.primary}22`, color: colors.primary }}
                     >
                       <MapPin size={22} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest leading-none" style={{ color: colors.primary }}>Selected District</p>
                       <h3 className="text-xl lg:text-2xl font-black text-slate-900 tracking-tighter mt-1">{SVG_NAME_TO_DISTRICT[hoveredSvgDistrict]}</h3>
                     </div>
                   </div>
@@ -444,18 +458,22 @@ export function MSMEClustersMap() {
 
                   <div className="space-y-3">
                     {top5ClustersGlobally.map((cluster, idx) => (
-                      <div key={cluster.id} className="flex items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-100 group hover:bg-emerald-50 hover:border-emerald-200 transition-colors">
+                      <div key={cluster.id} className="flex items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-100 group hover:bg-indigo-50 hover:border-indigo-200 transition-colors">
                         <div className="flex items-center gap-4">
-                          <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-xs font-black text-slate-500 group-hover:text-emerald-700 group-hover:border-emerald-300">
-                            #{idx + 1}
+                          <div 
+                            className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-sm font-black text-slate-500 group-hover:text-indigo-700 group-hover:border-indigo-300 shadow-sm transition-all"
+                            style={{ color: idx === 0 ? colors.accent : colors.primary }}
+                          >
+                            {idx === 0 ? <Award size={18} /> : <span>#{idx + 1}</span>}
                           </div>
                           <div>
-                            <h5 className="font-bold text-slate-800 group-hover:text-emerald-800">{cluster.name}</h5>
-                            <p className="text-[10px] font-semibold text-slate-500">{cluster.svgDistrict} District</p>
+                            <h5 className="font-bold text-slate-800 group-hover:text-indigo-900 leading-none">{cluster.name}</h5>
+                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">{cluster.svgDistrict} District</p>
                           </div>
                         </div>
                         <div className="text-right">
-                          <span className="font-black text-emerald-600 text-lg">{cluster.msmes.toLocaleString()}</span>
+                          <span className="font-black text-indigo-600 text-lg italic">{cluster.msmes.toLocaleString()}</span>
+                          <p className="text-[8px] font-black text-slate-400 uppercase leading-none">MSMEs</p>
                         </div>
                       </div>
                     ))}
