@@ -3,6 +3,8 @@
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useAppTheme } from "@/context/theme-context";
+
 const TILES = [
   {
     title: "MSMEs Reached for Awareness",
