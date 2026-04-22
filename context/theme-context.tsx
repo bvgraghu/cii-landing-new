@@ -1,8 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-
-type ThemeType = 'midnight' | 'forest' | 'carbon';
+import React, { createContext, useContext } from 'react';
 
 interface ThemeColors {
   primary: string;
@@ -12,57 +10,29 @@ interface ThemeColors {
   sectionBg: string;
 }
 
-const themePalettes: Record<ThemeType, ThemeColors> = {
-  midnight: {
-    primary: "#6366f1", // Indigo 500
-    accent: "#818cf8",  // Indigo 400 (lighter for readability)
-    mid: "#1e1b4b",     // Indigo 950
-    light: "#334155",   // Slate 700 (for secondary text)
-    sectionBg: "#0c0d1e", // Deep Navy Black
-  },
-  forest: {
-    primary: "#10b981", // Emerald 500
-    accent: "#34d399",  // Emerald 400
-    mid: "#064e3b",     // Green 950
-    light: "#065f46",   // Green 800
-    sectionBg: "#022c22", // Very dark forest green
-  },
-  carbon: {
-    primary: "#ffffff", // High contrast white
-    accent: "#10b981",  // Emerald 500 accent
-    mid: "#27272a",     // Zinc 800
-    light: "#52525b",   // Zinc 600
-    sectionBg: "#09090b", // Absolute dark
-  }
+const INSTITUTIONAL_COLORS: ThemeColors = {
+  primary: '#2A6B4F',
+  accent: '#C8963C',
+  mid: '#1A1F2E',
+  light: '#F5F0E8',
+  sectionBg: '#0F1724',
 };
 
 interface ThemeContextType {
-  theme: ThemeType;
-  setTheme: (theme: ThemeType) => void;
+  theme: string;
+  setTheme: (theme: any) => void;
   colors: ThemeColors;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeType>('midnight');
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('app-theme') as ThemeType;
-    if (savedTheme && themePalettes[savedTheme]) {
-      setThemeState(savedTheme);
-      document.body.className = `min-h-full flex flex-col theme-${savedTheme}`;
-    }
-  }, []);
-
-  const setTheme = (newTheme: ThemeType) => {
-    setThemeState(newTheme);
-    localStorage.setItem('app-theme', newTheme);
-    document.body.className = `min-h-full flex flex-col theme-${newTheme}`;
-  };
-
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, colors: themePalettes[theme] }}>
+    <ThemeContext.Provider value={{
+      theme: 'institutional',
+      setTheme: () => { },
+      colors: INSTITUTIONAL_COLORS
+    }}>
       {children}
     </ThemeContext.Provider>
   );

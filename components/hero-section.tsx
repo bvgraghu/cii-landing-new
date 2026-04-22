@@ -1,142 +1,127 @@
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Zap, ChevronRight } from "lucide-react";
-import { useAppTheme } from "@/context/theme-context";
+const TILES = [
+  {
+    title: "MSMEs Reached for Awareness",
+    value: "12,500+",
+    img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop",
+    accent: "#10B981",
+  },
+  {
+    title: "Expressions of Interest Received",
+    value: "3,240",
+    img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop",
+    accent: "#059669",
+  },
+  {
+    title: "RECP Assessments Completed",
+    value: "1,850",
+    img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=800&auto=format&fit=crop",
+    accent: "#34d399",
+  },
+  {
+    title: "Estimated State Carbon Reduction",
+    value: "2.4M t",
+    img: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=800&auto=format&fit=crop",
+    accent: "#65A30D",
+  },
+];
 
 export function HeroSection() {
   const { theme, colors } = useAppTheme();
 
   return (
     <>
-      {/* ── Hero Section ───────────────────────────────────────────────────── */}
-      <section className="relative w-full min-h-[640px] flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 z-0 transition-colors duration-700"
-          style={{ background: `linear-gradient(180deg, ${colors.sectionBg} 0%, ${colors.light} 100%)` }}
-        >
+      {/* ── Hero Section ──────────────────────────────────────────────── */}
+      {/* NO overflow-hidden, NO items-center/justify-center — content flows naturally */}
+      <section className="relative w-full min-h-screen flex flex-col bg-[#bbf7d0]">
+        {/* Background image */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=2670&auto=format&fit=crop"
-            alt="Wind turbines representing clean energy"
+            alt="Wind turbines"
             fill
-            className="object-cover opacity-[0.12] transition-opacity duration-700"
+            className="object-cover opacity-[0.3]"
             priority
           />
-          {/* Subtle grid overlay */}
+          {/* Grid overlay */}
           <div
-            className="absolute inset-0 opacity-[0.03] transition-colors duration-700"
+            className="absolute inset-0 opacity-[0.1]"
             style={{
               backgroundImage:
-                `linear-gradient(${colors.primary} 1px, transparent 1px), linear-gradient(90deg, ${colors.primary} 1px, transparent 1px)`,
+                "linear-gradient(rgba(16,185,129,1) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,1) 1px, transparent 1px)",
               backgroundSize: "60px 60px",
             }}
           />
-          {/* Subtle bottom gradient to blend perfectly */}
-          <div
-            className="absolute inset-x-0 bottom-0 h-32 transition-colors duration-700"
-            style={{ background: `linear-gradient(to top, ${colors.mid}44 0%, transparent 100%)` }}
-          />
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 container mx-auto px-6 md:px-12 flex flex-col items-center text-center pt-28 pb-10 transition-colors duration-700">
-          {/* Headline */}
-          <h1 
-            className="text-4xl md:text-7xl font-black mb-2 tracking-tight leading-[1.1] transition-colors duration-700"
-            style={{ color: colors.sectionBg === '#ffffff' ? '#0f172a' : '#f8fafc' }}
-          >
-            <span
-              className="block text-transparent bg-clip-text transition-all duration-700"
-              style={{ backgroundImage: `linear-gradient(90deg, ${colors.accent}, ${colors.primary})` }}
-            >
-              Greening of MSMEs
+        {/* Content wrapper — top padding clears the fixed two-slab header (topbar 48px + navbar ~44px) */}
+        <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-12 pt-28 md:pt-28 pb-12">
+          {/* Badge */}
+          {/* <div className="mb-5 inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-emerald-200 rounded-full px-5 py-2 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-emerald-700 text-[9px] sm:text-[10px] font-bold tracking-widest uppercase">
+              CII – Telangana MSME Energy Assessment Programme
             </span>
-            <Link 
-              href="https://tg.ramp.metaversedu.in/" 
+          </div> */}
+
+          {/* Heading */}
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl pt-5 font-black mb-4 tracking-tight text-slate-900 leading-[0.9] max-w-5xl">
+            <span className="text-emerald-600">Greening of MSMEs</span>
+            <br />
+            <Link
+              href="https://tg.ramp.metaversedu.in/"
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-2xl md:text-4xl mt-1 font-bold transition-all duration-700 opacity-60 hover:opacity-100 hover:text-indigo-500 underline decoration-indigo-500/30 underline-offset-8"
-              style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#94a3b8' }}
+              className="inline-flex items-center gap-2 transition-all underline underline-offset-8 group text-xl sm:text-2xl lg:text-3xl"
+              style={{ color: '#2A6B4F', textDecorationColor: 'rgba(42,107,79,0.3)' }}
             >
               under RAMP
+              <ArrowUpRight className="w-6 h-6 sm:w-8 sm:h-8 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Link>
           </h1>
-          <p
-            className="text-base md:text-xl mb-6 max-w-4xl leading-relaxed font-semibold transition-colors duration-700"
-            style={{ color: colors.sectionBg === '#ffffff' ? '#334155' : '#cbd5e1' }}
-          >
-            The Greening of MSMEs initiative under the RAMP Programme promotes sustainable,
-            <br className="hidden md:block" />
-            resource-efficient, and low-carbon growth across India's MSME landscape.
-            <span
-              className="block mt-2 font-medium transition-colors duration-700 opacity-80"
-              style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#94a3b8' }}
-            >
-              We support MSMEs in adopting green technologies and improving energy efficiency
-              <br className="hidden md:block" />
-              to enhance global competitiveness while reducing environmental impact.
-            </span>
+
+          {/* Sub-copy */}
+          <p className="text-sm sm:text-base lg:text-lg mb-10 max-w-3xl text-slate-700 leading-relaxed font-medium">
+            The Greening of MSMEs initiative under the Raising and Accelerating MSME Performance
+            (RAMP) Programme aims to promote sustainable, resource-efficient, and low-carbon growth
+            across Micro, Small, and Medium Enterprises (MSMEs) in India.
           </p>
 
-          {/* 4 Tiles */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl">
-            {[
-              {
-                title: "MSMEs Reached for Awareness",
-                value: "12,500+",
-                img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop",
-              },
-              {
-                title: "Expressions of Interest (EoIs) Received",
-                value: "3,240",
-                img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop",
-              },
-              {
-                title: "RECP Assessments Completed",
-                value: "1,850",
-                img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=800&auto=format&fit=crop",
-              },
-              {
-                title: "Estimated Reduction in Carbon Footprint",
-                value: "2.4M t",
-                img: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=800&auto=format&fit=crop",
-              },
-            ].map((tile, i) => (
+          {/* ── Stat Cards ─────────────────────────────────────────────── */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px w-full max-w-6xl rounded-xl overflow-hidden shadow-2xl border border-emerald-900/10 bg-emerald-900/20">
+            {TILES.map((tile, i) => (
               <div
                 key={i}
-                className="relative group overflow-hidden rounded-3xl h-52 md:h-64 shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-white/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+                className="relative group overflow-hidden h-56 sm:h-64 lg:h-72 cursor-default bg-slate-900"
               >
                 <Image
                   src={tile.img}
                   alt={tile.title}
                   fill
-                  unoptimized={true}
-                  className="object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.4] saturate-[0.8] contrast-[1.1] opacity-70"
+                  unoptimized
+                  className="object-cover transition-all duration-1000 group-hover:scale-110 brightness-[0.4] saturate-[0.8] group-hover:brightness-[0.55]"
                 />
 
-                {/* Visual Accent Layer */}
-                <div
-                  className="absolute inset-0 opacity-10 group-hover:opacity-30 transition-opacity duration-500"
-                  style={{ backgroundColor: colors.accent }}
-                />
-
-                {/* Linear overlay for readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent flex flex-col justify-end p-6 text-left">
-                  <p
-                    className="text-[15px] font-black uppercase tracking-widest mb-3 line-clamp-2 leading-snug transition-colors text-slate-300 group-hover:text-white"
-                  >
+                {/* Content */}
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-4 sm:p-6 text-center">
+                  <div
+                    className="h-1 mb-4 rounded-full transition-all duration-500 w-10 group-hover:w-20"
+                    style={{ backgroundColor: tile.accent }}
+                  />
+                  <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.18em] mb-3 text-emerald-400 leading-snug max-w-[140px] sm:max-w-[180px]">
                     {tile.title}
                   </p>
-                  <p className="text-2xl font-black text-white tracking-tight leading-none">{tile.value}</p>
+                  <p className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tighter drop-shadow-2xl transition-transform duration-500 group-hover:scale-110">
+                    {tile.value}
+                  </p>
                 </div>
 
-                {/* Interaction indicator */}
-                <div
-                  className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center bg-white/10 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0"
-                >
-                  <ChevronRight className="w-4 h-4 text-white" />
-                </div>
+                {/* Hover glow */}
+                <div className="absolute inset-0 bg-emerald-500/0 group-hover:bg-emerald-500/5 transition-colors duration-500" />
               </div>
             ))}
           </div>
