@@ -54,24 +54,21 @@ export function Navbar() {
             <div className="flex items-center gap-4 h-full border-l pl-6" style={{ borderColor: 'rgba(200,150,60,0.3)' }}>
               <div className="hidden xl:flex flex-col">
                 <span
-                  className="font-display leading-tight"
+                  className="font-sans leading-tight uppercase tracking-wide"
                   style={{
-                    fontSize: '13px',
-                    fontVariant: 'small-caps',
-                    color: 'rgba(255,255,255,0.90)',
-                    fontWeight: 700,
-                    letterSpacing: '0.02em',
+                    fontSize: '12px',
+                    color: '#ffffff',
+                    fontWeight: 800,
                   }}
                 >
                   Office of the Principal Scientific Adviser
                 </span>
                 <span
-                  className="font-display leading-none mt-0.5"
+                  className="font-sans leading-none mt-0.5 uppercase tracking-widest"
                   style={{
-                    fontSize: '11px',
-                    fontVariant: 'small-caps',
-                    color: 'rgba(255,255,255,0.50)',
-                    fontWeight: 500,
+                    fontSize: '9px',
+                    color: 'rgba(255,255,255,0.7)',
+                    fontWeight: 700,
                   }}
                 >
                   to the Government of India

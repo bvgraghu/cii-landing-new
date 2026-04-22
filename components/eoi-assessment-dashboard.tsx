@@ -5,6 +5,7 @@ import ReactECharts from "echarts-for-react";
 import { Leaf, Activity, Droplets, Zap, IndianRupee } from "lucide-react";
 import { motion, useScroll } from "framer-motion";
 import { useAppTheme } from "@/context/theme-context";
+import { EnergySankeyFlow } from "@/components/energy-sankey-flow";
 
 // --- LAYER-BASED COLOR STRATEGY (STRICT) ---
 const SECTOR_THEMES: Record<string, { base: string, mid: string, light: string }> = {
@@ -122,21 +123,21 @@ export function EOIAssessmentDashboard() {
             label: clusterVisible ? { color: '#0f172a', rotate: 'tangential', fontSize: 10 } : INVISIBLE.label,
             meta: { theme, type: 'cluster', sector: sectorName, cluster: clusterName, eois: eoisVal, energy: energyMWh },
             children: [
-              { 
-                name: `EoIs: ${eoisVal.toLocaleString()}`, 
-                value: exactVolume / 2, 
-                formattedVal: `${eoisVal.toLocaleString()} EoIs`, 
-                unit: "EoIs", 
-                itemStyle: impactVisible ? { color: theme.light, opacity: 0.9 } : INVISIBLE.itemStyle, 
+              {
+                name: `EoIs: ${eoisVal.toLocaleString()}`,
+                value: exactVolume / 2,
+                formattedVal: `${eoisVal.toLocaleString()} EoIs`,
+                unit: "EoIs",
+                itemStyle: impactVisible ? { color: theme.light, opacity: 0.9 } : INVISIBLE.itemStyle,
                 label: impactVisible ? { color: '#1e293b' } : INVISIBLE.label,
                 meta: { theme, type: 'metric', label: 'Registered EoIs', value: eoisVal, unit: 'Applications' }
               },
-              { 
-                name: `Saving: ${energyMWh.toLocaleString()} MWh`, 
-                value: exactVolume / 2, 
-                formattedVal: `${energyMWh.toLocaleString()} MWh`, 
-                unit: "MWh", 
-                itemStyle: impactVisible ? { color: theme.light, opacity: 0.9 } : INVISIBLE.itemStyle, 
+              {
+                name: `Saving: ${energyMWh.toLocaleString()} MWh`,
+                value: exactVolume / 2,
+                formattedVal: `${energyMWh.toLocaleString()} MWh`,
+                unit: "MWh",
+                itemStyle: impactVisible ? { color: theme.light, opacity: 0.9 } : INVISIBLE.itemStyle,
                 label: impactVisible ? { color: '#1e293b' } : INVISIBLE.label,
                 meta: { theme, type: 'metric', label: 'Projected Energy Savings', value: energyMWh, unit: 'MWh' }
               }
@@ -254,15 +255,15 @@ export function EOIAssessmentDashboard() {
           {
             // Level 3: Metrics
             r0: '72%', r: '100%',
-            label: { 
-              position: 'inside', 
-              rotate: 'radial', 
-              align: 'right', 
-              minAngle: 10, 
+            label: {
+              position: 'inside',
+              rotate: 'radial',
+              align: 'right',
+              minAngle: 10,
               overflow: 'truncate',
-              color: '#334155', 
-              fontSize: 8.5, 
-              fontWeight: '800' 
+              color: '#334155',
+              fontSize: 8.5,
+              fontWeight: '800'
             }
           }
         ]
@@ -282,20 +283,33 @@ export function EOIAssessmentDashboard() {
   };
 
   return (
-    <section ref={containerRef} className="w-full relative transition-colors duration-700" id="impact-dashboard" style={{ height: "300vh", backgroundColor: colors.sectionBg }}>
+    <>
+    <section ref={containerRef} className="w-full relative py-10 bg-slate-900 border-t-4 border-emerald-500 border-b border-b-slate-700" id="impact-dashboard">
+      <div className="w-full flex items-center justify-center px-4 md:px-12">
+        <div className="max-w-[1500px] w-full mx-auto flex flex-col items-center justify-center gap-8">
+
+
+
+          <EnergySankeyFlow />
+
+        </div>
+      </div>
+    </section>
+
+    {/* --- SECTORAL COVERAGE MAP HIDDEN ---
+          <section className="w-full relative transition-colors duration-700" id="impact-dashboard" style={{ height: "300vh", backgroundColor: colors.sectionBg }}>
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden py-2 md:py-3 px-4 md:px-12">
         <div className="max-w-[1500px] w-full mx-auto flex flex-col h-full items-center justify-center">
 
-          {/* Header */}
           <div className="flex flex-col md:flex-row items-end justify-between border-b border-slate-200 pb-1 mb-1 w-full transition-colors duration-700">
             <div className="w-full md:w-auto">
-              <h2 
+              <h2
                 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight leading-none italic mb-0.5 md:mb-0.5 transition-colors duration-700"
                 style={{ color: colors.sectionBg === '#ffffff' ? '#0f172a' : '#f8fafc' }}
               >
                 Sectoral <span style={{ color: colors.primary }}>Coverage Map</span>
               </h2>
-              <p 
+              <p
                 className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] transition-colors duration-700"
                 style={{ color: colors.sectionBg === '#ffffff' ? '#94a3b8' : '#cbd5e1' }}
               >
@@ -303,9 +317,9 @@ export function EOIAssessmentDashboard() {
               </p>
             </div>
             <div className="hidden md:block text-right">
-              <p 
+              <p
                 className="text-[9px] font-black uppercase tracking-widest backdrop-blur-md shadow-sm border border-slate-100 px-4 py-1.5 rounded-full mt-4 md:mt-0 max-w-sm ml-auto transition-colors duration-700"
-                style={{ 
+                style={{
                   backgroundColor: colors.sectionBg === '#ffffff' ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.05)',
                   color: colors.sectionBg === '#ffffff' ? '#94a3b8' : '#cbd5e1'
                 }}
@@ -315,13 +329,11 @@ export function EOIAssessmentDashboard() {
             </div>
           </div>
 
-          {/* ECharts Sunburst Container */}
-          <div 
+          <div
             className="w-full backdrop-blur-sm shadow-[0_30px_100px_rgba(0,0,0,0.08)] rounded-[2rem] md:rounded-[3rem] border p-4 md:p-8 flex flex-1 w-full min-h-[400px] md:min-h-[600px] max-h-[85vh] relative mt-2 overflow-hidden transition-all duration-700"
             style={{ backgroundColor: `${colors.light}aa`, borderColor: colors.mid }}
           >
-            
-            {/* STATEWIDE MILESTONES (Top Left Overlay) */}
+
             <div className="absolute top-4 left-4 md:top-8 md:left-8 z-10 flex flex-col gap-2 md:gap-4 bg-white/40 backdrop-blur-xl p-3 md:p-5 rounded-2xl md:rounded-3xl border border-white/40 shadow-sm pointer-events-none min-w-[140px] md:min-w-[200px]">
               <div className="space-y-0.5 md:space-y-1">
                 <p className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-slate-400">Milestone</p>
@@ -339,8 +351,7 @@ export function EOIAssessmentDashboard() {
               </div>
             </div>
 
-            {/* HOVER SUMMARY PANEL (Right Space) */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: hoveredData ? 1 : 0, x: hoveredData ? 0 : 20 }}
               className="absolute top-4 right-4 md:top-8 md:right-8 z-10 w-48 md:w-72 bg-white/90 backdrop-blur-xl p-4 md:p-6 rounded-[1.5rem] md:rounded-[2rem] border border-slate-200 shadow-xl pointer-events-none scale-90 md:scale-100 origin-top-right"
@@ -410,5 +421,7 @@ export function EOIAssessmentDashboard() {
         </div>
       </div>
     </section>
+    --- SECTORAL COVERAGE MAP HIDDEN --- */}
+    </>
   );
 }

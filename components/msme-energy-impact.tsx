@@ -195,79 +195,48 @@ export function MSMEEnergyImpact() {
   if (!mounted) return null;
 
   return (
-    <section className="w-full py-6 px-6 md:px-12 font-sans border-t border-slate-100 overflow-hidden relative transition-colors duration-700" style={{ backgroundColor: colors.sectionBg }}>
+    <section className="w-full py-10 px-6 md:px-12 font-sans border-t border-slate-800 overflow-hidden relative bg-[#0B1120]">
       <div className="max-w-[1400px] mx-auto relative z-10">
 
         {/* Header Section */}
-        <div className="text-center mb-4 space-y-1 transition-colors duration-700">
-          <div 
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.2em] animate-fade-in transition-colors duration-700"
-            style={{ 
-              backgroundColor: colors.sectionBg === '#ffffff' ? colors.light : `${colors.light}22`, 
-              color: colors.primary 
-            }}
-          >
-            <Activity size={10} className="animate-pulse" />
+        <div className="text-center mb-6 space-y-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <Activity size={12} className="animate-pulse" />
             Strategic Impact Analysis
           </div>
-          <h2 
-            className="text-2xl font-black tracking-tight leading-none italic transition-colors duration-700"
-            style={{ color: colors.sectionBg === '#ffffff' ? '#1e293b' : '#f8fafc' }}
-          >
-            Telangana MSME Industrial <span style={{ color: colors.primary }}>Decarbonization Pathway</span>
+          <h2 className="text-3xl md:text-4xl font-black tracking-tight leading-none italic text-white">
+            Telangana MSME Industrial <span className="text-emerald-400">Decarbonization Pathway</span>
           </h2>
-          <p 
-            className="text-[10px] font-bold uppercase tracking-widest leading-none opacity-70 transition-colors duration-700"
-            style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#cbd5e1' }}
-          >
+          <p className="text-[11px] font-bold uppercase tracking-widest leading-none text-slate-400">
             Comparative Sectoral Emissions · Before vs After Intervention
           </p>
         </div>
 
         {/* ── MAIN CONTENT ── */}
-        <div className="flex flex-col lg:flex-row gap-6 items-stretch min-h-[450px]">
+        <div className="flex flex-col lg:flex-row gap-6 items-stretch">
 
           {/* LEFT: Emissions Chart */}
-          <div className="w-full lg:w-[62%] flex flex-col gap-4">
-            <div className="flex items-center justify-between px-2 transition-colors duration-700">
+          <div className="w-full lg:w-[65%] flex flex-col">
+            <div className="flex items-center justify-between mb-4">
                <div>
-                  <h3 
-                    className="text-base font-black tracking-tight leading-none italic transition-colors duration-700"
-                    style={{ color: colors.sectionBg === '#ffffff' ? '#1e293b' : '#f8fafc' }}
-                  >
-                    Sectoral <span style={{ color: colors.primary }}>Emissions</span>
+                  <h3 className="text-xl font-black tracking-tight leading-none italic text-white">
+                    Sectoral <span className="text-emerald-400">Emissions</span>
                   </h3>
-                  <p 
-                    className="text-[8px] font-bold uppercase tracking-widest mt-1 opacity-70 transition-colors duration-700"
-                    style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#cbd5e1' }}
-                  >Status: Before vs After Greening</p>
                </div>
-               <div className="flex gap-4">
+               <div className="flex gap-6 bg-slate-900/50 px-4 py-2 rounded-xl border border-slate-800">
                   <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: colors.sectionBg === '#ffffff' ? '#e2e8f0' : '#334155' }} />
-                    <span 
-                      className="text-[9px] font-bold uppercase tracking-widest opacity-80 transition-colors duration-700"
-                      style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#94a3b8' }}
-                    >Before</span>
+                    <div className="w-3 h-3 rounded-sm bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.3)]" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Before</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: colors.accent }} />
-                    <span 
-                      className="text-[9px] font-bold uppercase tracking-widest opacity-80 transition-colors duration-700"
-                      style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#94a3b8' }}
-                    >After</span>
+                    <div className="w-3 h-3 rounded-sm bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white">After Greening</span>
                   </div>
                </div>
             </div>
 
-            <div 
-              className="flex-1 rounded-[1.5rem] p-6 border shadow-sm transition-all duration-700"
-              style={{ 
-                borderColor: colors.mid,
-                backgroundColor: colors.sectionBg === '#ffffff' ? '#ffffff' : `${colors.light}33`
-              }}
-            >
-              <ResponsiveContainer width="100%" height="100%">
+            <div className="flex-1 rounded-[1.5rem] p-6 border border-slate-800 bg-[#111827]/80 shadow-2xl relative">
+              <ResponsiveContainer width="100%" height={320}>
                 <BarChart 
                   data={[
                     { sector: "Eng/Metals", before: 420, after: 215 },
@@ -280,113 +249,86 @@ export function MSMEEnergyImpact() {
                     { sector: "Rice Mills", before: 180, after: 90 },
                     { sector: "Others", before: 140, after: 85 },
                   ]} 
-                  margin={{ top: 5, right: 5, left: -25, bottom: 0 }}
+                  margin={{ top: 20, right: 0, left: -20, bottom: 0 }}
+                  barGap={2}
                 >
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={colors.sectionBg === '#ffffff' ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.05)"} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
                   <XAxis 
                     dataKey="sector" 
                     axisLine={false} 
                     tickLine={false} 
-                    tick={{ fill: colors.sectionBg === '#ffffff' ? "#64748b" : "#94a3b8", fontSize: 8, fontWeight: 800 }} 
+                    tick={{ fill: "#94a3b8", fontSize: 10, fontWeight: 700 }} 
+                    dy={10}
                   />
                   <YAxis 
                     axisLine={false} 
                     tickLine={false} 
-                    tick={{ fill: colors.sectionBg === '#ffffff' ? "#64748b" : "#94a3b8", fontSize: 9 }}
+                    tick={{ fill: "#64748b", fontSize: 10, fontWeight: 600 }}
                   />
                   <Tooltip 
-                    cursor={{ fill: colors.sectionBg === '#ffffff' ? 'rgba(0,0,0,0.02)' : 'rgba(255,255,255,0.02)' }}
+                    cursor={{ fill: 'rgba(255,255,255,0.02)' }}
                     contentStyle={{ 
-                      borderRadius: '8px', 
-                      border: 'none', 
-                      fontSize: '11px', 
-                      boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-                      backgroundColor: colors.sectionBg === '#ffffff' ? '#ffffff' : colors.mid,
-                      color: colors.sectionBg === '#ffffff' ? '#1e293b' : '#f8fafc'
+                      borderRadius: '12px', 
+                      border: '1px solid rgba(255,255,255,0.1)', 
+                      fontSize: '12px', 
+                      boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+                      backgroundColor: '#0F172A',
+                      color: '#F8FAFC'
                     }}
+                    itemStyle={{ fontWeight: 800 }}
                   />
-                  <Bar dataKey="before" name="Before (tCO2e)" fill={colors.sectionBg === '#ffffff' ? "#e2e8f0" : "#334155"} radius={[2, 2, 0, 0]} />
-                  <Bar dataKey="after" name="After (tCO2e)" fill={colors.accent} radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="before" name="Before (tCO2e)" fill="#ef4444" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                  <Bar dataKey="after" name="After (tCO2e)" fill="#10B981" radius={[4, 4, 0, 0]} maxBarSize={40} />
                 </BarChart>
               </ResponsiveContainer>
               
-              <div 
-                className="mt-4 p-3 rounded-xl border flex items-start gap-2 transition-colors duration-700"
-                style={{ 
-                  backgroundColor: colors.sectionBg === '#ffffff' ? '#eef2ff' : `${colors.primary}11`,
-                  borderColor: colors.sectionBg === '#ffffff' ? '#e0e7ff' : `${colors.primary}33`
-                }}
-              >
-                <Leaf size={14} className="mt-0.5 shrink-0" style={{ color: colors.primary }} />
-                <p 
-                  className="text-[10px] font-semibold leading-normal transition-colors duration-700"
-                  style={{ color: colors.sectionBg === '#ffffff' ? '#312e81' : '#cbd5e1' }}
-                >
-                  Decarbonization strategy aiming for a <span style={{ color: colors.accent }} className="font-black">50%+ reduction</span> in carbon across high-impact sectors.
+              <div className="mt-6 p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 flex items-center gap-3">
+                <Leaf size={18} className="shrink-0 text-emerald-400" />
+                <p className="text-[11px] font-semibold text-slate-300 uppercase tracking-wide">
+                  Decarbonization strategy successfully maps a <span className="text-emerald-400 font-black">50%+ reduction</span> in carbon emissions across all high-impact industrial sectors.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* RIGHT: Resource Metrics Chart */}
-          <div className="w-full lg:w-[38%] flex flex-col gap-4">
-            <div className="flex items-center justify-between px-2 transition-colors duration-700">
-              <div>
-                <h3 
-                  className="text-base font-black tracking-tight leading-none italic transition-colors duration-700"
-                  style={{ color: colors.sectionBg === '#ffffff' ? '#1e293b' : '#f8fafc' }}
-                >
-                  Sustainability <span style={{ color: colors.primary }}>Dashboard</span>
-                </h3>
-              </div>
+          {/* RIGHT: Resource Metrics Dashboard */}
+          <div className="w-full lg:w-[35%] flex flex-col">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-black tracking-tight leading-none italic text-white">
+                Sustainability <span className="text-blue-400">Dashboard</span>
+              </h3>
             </div>
 
-            <div 
-              className="flex-1 rounded-[1.5rem] p-8 border shadow-sm transition-all duration-700 flex flex-col justify-around gap-4"
-              style={{ 
-                backgroundColor: colors.sectionBg === '#ffffff' ? '#ffffff' : `${colors.light}33`, 
-                borderColor: colors.mid 
-              }}
-            >
+            <div className="flex-1 rounded-[1.5rem] p-6 border border-slate-800 bg-[#111827]/80 shadow-2xl flex flex-col justify-between gap-6">
               {[
-                { label: "Specific Energy Reduction", val: "24.5%", icon: <Zap size={18} />, sub: "Goal: 30%", color: colors.primary, pct: 81 },
-                { label: "Water Withdrawal Savings", val: "38.2%", icon: <Droplets size={18} />, sub: "Goal: 50%", color: "#0ea5e9", pct: 76 },
-                { label: "Waste-to-Resource Rate", val: "62.0%", icon: <TrendingUp size={18} />, sub: "Goal: 85%", color: colors.accent, pct: 72 },
-                { label: "Renewable Energy Mix", val: "18.5%", icon: <Leaf size={18} />, sub: "Goal: 40%", color: "#10b981", pct: 46 },
+                { label: "Specific Energy Reduction", val: "24.5%", icon: <Zap size={20} />, sub: "Goal: 30%", color: "#38BDF8", pct: 81 },
+                { label: "Water Withdrawal Savings", val: "38.2%", icon: <Droplets size={20} />, sub: "Goal: 50%", color: "#818CF8", pct: 76 },
+                { label: "Waste-to-Resource Rate", val: "62.0%", icon: <TrendingUp size={20} />, sub: "Goal: 85%", color: "#F472B6", pct: 72 },
+                { label: "Renewable Energy Mix", val: "18.5%", icon: <Leaf size={20} />, sub: "Goal: 40%", color: "#10B981", pct: 46 },
               ].map((m, i) => (
-                <div key={i} className="flex flex-col gap-2">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg" style={{ backgroundColor: `${m.color}22`, color: m.color }}>{m.icon}</div>
-                    <div>
-                      <p 
-                        className="text-[8px] font-black uppercase tracking-widest mb-0.5 transition-colors duration-700 opacity-60"
-                        style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#cbd5e1' }}
-                      >{m.label}</p>
-                      <p 
-                        className="text-xl font-black tracking-tight italic leading-none transition-colors duration-700"
-                        style={{ color: colors.sectionBg === '#ffffff' ? '#0f172a' : '#f8fafc' }}
-                      >{m.val}</p>
+                <div key={i} className="flex flex-col gap-3 group">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 transition-colors group-hover:bg-white/10" style={{ color: m.color }}>{m.icon}</div>
+                      <div>
+                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">{m.label}</p>
+                        <p className="text-2xl font-black tracking-tight italic leading-none text-white">{m.val}</p>
+                      </div>
                     </div>
                   </div>
-                  <div className="space-y-1">
-                    <div 
-                      className="h-1.5 w-full rounded-full overflow-hidden flex transition-colors duration-700"
-                      style={{ backgroundColor: colors.sectionBg === '#ffffff' ? '#f1f5f9' : '#1e293b' }}
-                    >
+                  <div className="space-y-1.5">
+                    <div className="h-2 w-full rounded-full overflow-hidden bg-slate-800 border border-slate-700/50">
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${m.pct}%` }}
                         transition={{ duration: 1.5, delay: i * 0.2 }}
-                        className="h-full rounded-full" 
-                        style={{ backgroundColor: m.color }} 
+                        className="h-full rounded-full shadow-[0_0_10px_currentColor]" 
+                        style={{ backgroundColor: m.color, color: m.color }} 
                       />
                     </div>
-                    <div 
-                      className="flex justify-between items-center text-[8px] font-bold uppercase tracking-widest opacity-60 transition-colors duration-700"
-                      style={{ color: colors.sectionBg === '#ffffff' ? '#64748b' : '#94a3b8' }}
-                    >
-                      <span>Progress</span>
-                      <span style={{ color: m.color }}>{m.sub}</span>
+                    <div className="flex justify-between items-center text-[9px] font-bold uppercase tracking-widest text-slate-500">
+                      <span>Progress vs Goal</span>
+                      <span style={{ color: m.color }} className="font-black">{m.sub}</span>
                     </div>
                   </div>
                 </div>
@@ -396,26 +338,20 @@ export function MSMEEnergyImpact() {
         </div>
 
         {/* Branding Footer */}
-        <div className="mt-10 pt-4 border-t border-slate-100/10 flex items-center justify-between">
-            <div className="flex items-center gap-8 opacity-40 grayscale hover:grayscale-0 transition-all cursor-crosshair">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="GOI" className="h-4" style={{ filter: colors.sectionBg === '#ffffff' ? 'none' : 'invert(1)' }} />
-                 <div className="h-4 w-px bg-slate-300" />
-                 <span 
-                    className="text-[9px] font-black uppercase tracking-[0.2em] transition-colors duration-700"
-                    style={{ color: colors.sectionBg === '#ffffff' ? '#1e293b' : '#ffffff' }}
-                 >
+        <div className="mt-8 pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div className="flex items-center gap-6 opacity-50 hover:opacity-100 transition-opacity cursor-pointer">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="GOI" className="h-5 invert opacity-80" />
+                 <div className="h-5 w-px bg-slate-700" />
+                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">
                    Sustainability Portal · GoI Initiative
                  </span>
-            </div>
-            <div className="flex gap-4">
-                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: colors.primary }} />
-                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: colors.accent }} />
             </div>
         </div>
       </div>
 
       {/* Background Decorative Element */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-50/30 rounded-full blur-[120px] -z-10 translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none -z-10 translate-x-1/3 -translate-y-1/3" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none -z-10 -translate-x-1/3 translate-y-1/3" />
     </section>
   );
 }
