@@ -1,26 +1,43 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --dark-slab: #0F1724;
+  --light-slab: #F5F0E8;
+  --accent-green: #2A6B4F;
+  --accent-gold: #C8963C;
+  --section-border: #1A1F2E;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-dark-slab: var(--dark-slab);
+  --color-light-slab: var(--light-slab);
+  --color-accent-green: var(--accent-green);
+  --color-accent-gold: var(--accent-gold);
+  --color-section-border: var(--section-border);
+  --font-sans: var(--font-dm-sans);
+  --font-mono: var(--font-dm-mono);
+  --font-serif: var(--font-playfair);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--light-slab);
+  color: #1e293b;
+  font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Display heading serif class */
+.font-display {
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+}
+
+/* Body text class */
+.font-body {
+  font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+}
+
+/* Numbers, labels, tags, badges mono class */
+.font-numbers {
+  font-family: var(--font-dm-mono), 'DM Mono', monospace;
 }
