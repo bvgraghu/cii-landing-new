@@ -284,19 +284,19 @@ export function EOIAssessmentDashboard() {
 
   return (
     <>
-    <section ref={containerRef} className="w-full relative py-10 bg-slate-900 border-t-4 border-emerald-500 border-b border-b-slate-700" id="impact-dashboard">
-      <div className="w-full flex items-center justify-center px-4 md:px-12">
-        <div className="max-w-[1500px] w-full mx-auto flex flex-col items-center justify-center gap-8">
+      <section ref={containerRef} className="w-full relative py-12 bg-[#E2F0EC] border-t-4 border-emerald-400 border-b border-[#0f766e] shadow-2xl" id="impact-dashboard">
+        <div className="w-full flex items-center justify-center px-4 md:px-8">
+          <div className="max-w-[1500px] w-full mx-auto flex flex-col items-center justify-center gap-8">
 
 
 
-          <EnergySankeyFlow />
+            <EnergySankeyFlow />
 
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* --- SECTORAL COVERAGE MAP HIDDEN ---
+      {/* --- SECTORAL COVERAGE MAP HIDDEN ---
           <section className="w-full relative transition-colors duration-700" id="impact-dashboard" style={{ height: "300vh", backgroundColor: colors.sectionBg }}>
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden py-2 md:py-3 px-4 md:px-12">
         <div className="max-w-[1500px] w-full mx-auto flex flex-col h-full items-center justify-center">

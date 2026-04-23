@@ -140,14 +140,14 @@ export function MSMEEnergyImpact() {
 
         // Clean & Style SVG
         svg.querySelectorAll("metadata, sodipodi\\:namedview, defs").forEach(el => el.remove());
-        
+
         // Fix scaling: Map width/height to viewBox
         const w = svg.getAttribute("width") || "928";
         const h = svg.getAttribute("height") || "875";
         svg.setAttribute("viewBox", `0 0 ${parseFloat(w)} ${parseFloat(h)}`);
         svg.removeAttribute("width");
         svg.removeAttribute("height");
-        
+
         // Remove the non-district outline path
         const firstPath = svg.querySelector("path:not([name])");
         if (firstPath) firstPath.remove();
@@ -159,7 +159,7 @@ export function MSMEEnergyImpact() {
         // Style Paths
         svg.querySelectorAll("path[name]").forEach(path => {
           const el = path as SVGPathElement;
-          el.style.fill = colors.mid; 
+          el.style.fill = colors.mid;
           el.style.stroke = colors.primary;
           el.style.strokeWidth = "0.8";
           el.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
@@ -195,19 +195,19 @@ export function MSMEEnergyImpact() {
   if (!mounted) return null;
 
   return (
-    <section className="w-full py-10 px-6 md:px-12 font-sans border-t border-slate-800 overflow-hidden relative bg-[#0B1120]">
+    <section className="w-full py-12 px-4 md:px-8 font-sans border-t border-purple-200 overflow-hidden relative bg-[#F2E6D8]">
       <div className="max-w-[1400px] mx-auto relative z-10">
 
         {/* Header Section */}
-        <div className="text-center mb-6 space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <div className="text-center mb-10 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-emerald-100 text-emerald-700 border border-emerald-200">
             <Activity size={12} className="animate-pulse" />
             Strategic Impact Analysis
           </div>
-          <h2 className="text-3xl md:text-4xl font-black tracking-tight leading-none italic text-white">
-            Telangana MSME Industrial <span className="text-emerald-400">Decarbonization Pathway</span>
+          <h2 className="text-2xl md:text-4xl font-black tracking-tight leading-none italic text-slate-900">
+            Telangana MSME Industrial <span className="text-emerald-600">Decarbonization Pathway</span>
           </h2>
-          <p className="text-[11px] font-bold uppercase tracking-widest leading-none text-slate-400">
+          <p className="text-[11px] font-bold uppercase tracking-widest leading-none text-slate-500">
             Comparative Sectoral Emissions · Before vs After Intervention
           </p>
         </div>
@@ -218,26 +218,26 @@ export function MSMEEnergyImpact() {
           {/* LEFT: Emissions Chart */}
           <div className="w-full lg:w-[65%] flex flex-col">
             <div className="flex items-center justify-between mb-4">
-               <div>
-                  <h3 className="text-xl font-black tracking-tight leading-none italic text-white">
-                    Sectoral <span className="text-emerald-400">Emissions</span>
-                  </h3>
-               </div>
-               <div className="flex gap-6 bg-slate-900/50 px-4 py-2 rounded-xl border border-slate-800">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-sm bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.3)]" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Before</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-sm bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-white">After Greening</span>
-                  </div>
-               </div>
+              <div>
+                <h3 className="text-xl font-black tracking-tight leading-none italic text-slate-900">
+                  Sectoral <span className="text-emerald-600">Emissions</span>
+                </h3>
+              </div>
+              <div className="flex gap-6 bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-sm">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-sm bg-red-500 shadow-sm" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Before</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-sm bg-emerald-500 shadow-sm" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-700">After Greening</span>
+                </div>
+              </div>
             </div>
 
-            <div className="flex-1 rounded-[1.5rem] p-6 border border-slate-800 bg-[#111827]/80 shadow-2xl relative">
+            <div className="flex-1 rounded-[1.5rem] p-6 border border-purple-200 bg-white shadow-xl relative">
               <ResponsiveContainer width="100%" height={320}>
-                <BarChart 
+                <BarChart
                   data={[
                     { sector: "Eng/Metals", before: 420, after: 215 },
                     { sector: "Pharma", before: 385, after: 190 },
@@ -248,29 +248,29 @@ export function MSMEEnergyImpact() {
                     { sector: "Foundry", before: 450, after: 225 },
                     { sector: "Rice Mills", before: 180, after: 90 },
                     { sector: "Others", before: 140, after: 85 },
-                  ]} 
+                  ]}
                   margin={{ top: 20, right: 0, left: -20, bottom: 0 }}
                   barGap={2}
                 >
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
-                  <XAxis 
-                    dataKey="sector" 
-                    axisLine={false} 
-                    tickLine={false} 
-                    tick={{ fill: "#94a3b8", fontSize: 10, fontWeight: 700 }} 
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                  <XAxis
+                    dataKey="sector"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: "#94a3b8", fontSize: 10, fontWeight: 700 }}
                     dy={10}
                   />
-                  <YAxis 
-                    axisLine={false} 
-                    tickLine={false} 
+                  <YAxis
+                    axisLine={false}
+                    tickLine={false}
                     tick={{ fill: "#64748b", fontSize: 10, fontWeight: 600 }}
                   />
-                  <Tooltip 
+                  <Tooltip
                     cursor={{ fill: 'rgba(255,255,255,0.02)' }}
-                    contentStyle={{ 
-                      borderRadius: '12px', 
-                      border: '1px solid rgba(255,255,255,0.1)', 
-                      fontSize: '12px', 
+                    contentStyle={{
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      fontSize: '12px',
                       boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
                       backgroundColor: '#0F172A',
                       color: '#F8FAFC'
@@ -281,11 +281,11 @@ export function MSMEEnergyImpact() {
                   <Bar dataKey="after" name="After (tCO2e)" fill="#10B981" radius={[4, 4, 0, 0]} maxBarSize={40} />
                 </BarChart>
               </ResponsiveContainer>
-              
-              <div className="mt-6 p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 flex items-center gap-3">
-                <Leaf size={18} className="shrink-0 text-emerald-400" />
-                <p className="text-[11px] font-semibold text-slate-300 uppercase tracking-wide">
-                  Decarbonization strategy successfully maps a <span className="text-emerald-400 font-black">50%+ reduction</span> in carbon emissions across all high-impact industrial sectors.
+
+              <div className="mt-6 p-4 rounded-xl border border-emerald-200 bg-emerald-50 flex items-center gap-3">
+                <Leaf size={18} className="shrink-0 text-emerald-600" />
+                <p className="text-[11px] font-semibold text-slate-600 uppercase tracking-wide">
+                  Decarbonization strategy successfully maps a <span className="text-emerald-600 font-black">50%+ reduction</span> in carbon emissions across all high-impact industrial sectors.
                 </p>
               </div>
             </div>
@@ -294,12 +294,12 @@ export function MSMEEnergyImpact() {
           {/* RIGHT: Resource Metrics Dashboard */}
           <div className="w-full lg:w-[35%] flex flex-col">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-black tracking-tight leading-none italic text-white">
-                Sustainability <span className="text-blue-400">Dashboard</span>
+              <h3 className="text-xl font-black tracking-tight leading-none italic text-slate-900">
+                Sustainability <span className="text-blue-600">Dashboard</span>
               </h3>
             </div>
 
-            <div className="flex-1 rounded-[1.5rem] p-6 border border-slate-800 bg-[#111827]/80 shadow-2xl flex flex-col justify-between gap-6">
+            <div className="flex-1 rounded-[1.5rem] p-6 border border-purple-200 bg-white shadow-xl flex flex-col justify-between gap-6">
               {[
                 { label: "Specific Energy Reduction", val: "24.5%", icon: <Zap size={20} />, sub: "Goal: 30%", color: "#38BDF8", pct: 81 },
                 { label: "Water Withdrawal Savings", val: "38.2%", icon: <Droplets size={20} />, sub: "Goal: 50%", color: "#818CF8", pct: 76 },
@@ -309,21 +309,21 @@ export function MSMEEnergyImpact() {
                 <div key={i} className="flex flex-col gap-3 group">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 transition-colors group-hover:bg-white/10" style={{ color: m.color }}>{m.icon}</div>
+                      <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 transition-colors group-hover:bg-slate-100" style={{ color: m.color }}>{m.icon}</div>
                       <div>
-                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">{m.label}</p>
-                        <p className="text-2xl font-black tracking-tight italic leading-none text-white">{m.val}</p>
+                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-500 mb-0.5">{m.label}</p>
+                        <p className="text-2xl font-black tracking-tight italic leading-none text-slate-900">{m.val}</p>
                       </div>
                     </div>
                   </div>
                   <div className="space-y-1.5">
-                    <div className="h-2 w-full rounded-full overflow-hidden bg-slate-800 border border-slate-700/50">
-                      <motion.div 
+                    <div className="h-2 w-full rounded-full overflow-hidden bg-slate-100 border border-slate-200/50">
+                      <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${m.pct}%` }}
                         transition={{ duration: 1.5, delay: i * 0.2 }}
-                        className="h-full rounded-full shadow-[0_0_10px_currentColor]" 
-                        style={{ backgroundColor: m.color, color: m.color }} 
+                        className="h-full rounded-full shadow-[0_0_10px_currentColor]"
+                        style={{ backgroundColor: m.color, color: m.color }}
                       />
                     </div>
                     <div className="flex justify-between items-center text-[9px] font-bold uppercase tracking-widest text-slate-500">
@@ -337,20 +337,19 @@ export function MSMEEnergyImpact() {
           </div>
         </div>
 
-        {/* Branding Footer */}
-        <div className="mt-8 pt-4 border-t border-slate-800 flex items-center justify-between">
-            <div className="flex items-center gap-6 opacity-50 hover:opacity-100 transition-opacity cursor-pointer">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="GOI" className="h-5 invert opacity-80" />
-                 <div className="h-5 w-px bg-slate-700" />
-                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">
-                   Sustainability Portal · GoI Initiative
-                 </span>
-            </div>
-        </div>
+        {/* <div className="mt-8 pt-4 border-t border-purple-200 flex items-center justify-between">
+          <div className="flex items-center gap-6 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="GOI" className="h-5 opacity-80" />
+            <div className="h-5 w-px bg-purple-200" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">
+              Sustainability Portal · GoI Initiative
+            </span>
+          </div>
+        </div> */}
       </div>
 
       {/* Background Decorative Element */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none -z-10 translate-x-1/3 -translate-y-1/3" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[100px] pointer-events-none -z-10 translate-x-1/3 -translate-y-1/3" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none -z-10 -translate-x-1/3 translate-y-1/3" />
     </section>
   );
