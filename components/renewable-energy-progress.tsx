@@ -123,109 +123,110 @@ export function RenewableEnergyProgress() {
   if (!mounted) return null;
 
   return (
-    <section className="w-full py-10 px-6 md:px-12 font-sans relative border-t-4 border-violet-500" style={{ backgroundColor: 'var(--color-blue-100)' }}>
-      <div className="max-w-[1400px] mx-auto">
+    <section className="w-full py-16 px-6 md:px-12">
+      <div className="max-w-[1200px] mx-auto grid lg:grid-cols-2 gap-12 items-start">
 
-        {/* Download icon */}
-        <div
-          className="absolute top-8 right-12 cursor-pointer p-2 rounded-full transition-colors opacity-60 hover:opacity-100"
-          style={{ color: '#7c3aed' }}
-        >
-          <Download className="w-5 h-5" />
-        </div>
+        {/* ───────── LEFT: PYRAMID ───────── */}
+        <div className="flex flex-col items-center">
 
-        {/* Header */}
-        <div className="text-center mb-6">
-          <h2 className="text-3xl font-black tracking-tight leading-none italic text-slate-900">
-            Telangana Energy <span className="text-violet-700">Assessment Report</span>
-          </h2>
-          <p className="text-[10px] font-bold uppercase tracking-widest mt-1 text-slate-600">
-            MSME sector-wise savings across Telangana · FY 2017-18 to 2024-25
+          <p className="text-[10px] tracking-[0.3em] text-emerald-700 mb-6 uppercase">
+            Pyramid Approach · Strategy Model
           </p>
-        </div>
 
-        <div className="flex flex-col lg:flex-row gap-8 items-stretch">
-
-          {/* ── Pyramid Chart ─────────────────────────────────────────── */}
-          <div
-            className="w-full lg:w-[42%] rounded-[2.5rem] border border-violet-200 bg-white p-8 flex flex-col justify-between"
-          >
-            <h3 className="text-[11px] font-black uppercase tracking-widest text-violet-600 mb-6">Audit Funnel — Stage Progression</h3>
-            <div className="flex flex-col items-center justify-center gap-3 w-full flex-1">
-              {[
-                { label: "MSMEs Reached", value: "12,500+", pct: 100, color: "#7c3aed" },
-                { label: "EoIs Submitted", value: "8,450", pct: 68, color: "#8b5cf6" },
-                { label: "Eligible", value: "6,200", pct: 50, color: "#6d28d9" },
-                { label: "Scheduled", value: "4,100", pct: 33, color: "#4f46e5" },
-                { label: "Assessed (WT)", value: "3,976", pct: 25, color: "#3b82f6" },
-                { label: "DEA Completed", value: "1,850", pct: 15, color: "#10b981" },
-              ].map((row, i, arr) => (
-                <div key={row.label} className="flex items-center w-full gap-4">
-                  {/* left label */}
-                  <div className="w-[130px] text-right shrink-0">
-                    <p className="text-[9px] font-black uppercase tracking-widest text-slate-500">{row.label}</p>
-                    <p className="text-sm font-black text-slate-800">{row.value}</p>
-                  </div>
-                  {/* bar */}
-                  <div className="flex-1 flex justify-center">
-                    <div
-                      className="h-6 rounded-md transition-all duration-500 flex items-center justify-end pr-3"
-                      style={{
-                        width: `${row.pct}%`,
-                        background: `linear-gradient(90deg, ${row.color}aa, ${row.color})`,
-                        boxShadow: `0 0 12px ${row.color}44`,
-                      }}
-                    >
-                      <span className="text-[9px] font-black text-white/80">{row.pct}%</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className="text-center text-[9px] text-slate-400 mt-6 italic uppercase tracking-widest font-bold">
-              *Indicative data — CII MSME Energy Assessment Programme
+          {/* Impact */}
+          <div className="bg-[#0f3d2e] text-white text-center rounded-md px-8 py-4 mb-4 w-[60%]">
+            <h3 className="text-lg font-semibold mb-1">Impact</h3>
+            <p className="text-sm opacity-80">
+              Cost savings, CO₂ reduction, sustainability outcomes
             </p>
           </div>
 
-          {/* ── Right Panel ──────────────────────────────────────────────── */}
-          <div className="w-full lg:w-[58%] pl-8 flex flex-col gap-6 lg:border-l border-slate-200">
+          {/* Implementation */}
+          <div className="bg-[#1f5c43] text-white text-center rounded-md px-8 py-6 mb-4 w-[75%]">
+            <h3 className="text-xl font-semibold mb-2">Implementation</h3>
+            <p className="text-sm opacity-80">
+              Technology adoption & investment facilitation
+            </p>
+          </div>
 
-            <div className="grid grid-cols-2 gap-5 h-full">
-              <KPICard
-                icon={<Users className="w-5 h-5" />}
-                value="12,500+"
-                title="MSMEs Reached"
-                description="Targeted outreach for awareness and capacity building."
-                accentColor="#7C3AED"
-                growth="+24% YoY"
-              />
-              <KPICard
-                icon={<ClipboardCheck className="w-5 h-5" />}
-                value="3,240"
-                title="EoIs Received"
-                description="Total MSMEs expressing interest in greening."
-                accentColor="#3B82F6"
-                growth="+18% YoY"
-              />
-              <KPICard
-                icon={<Zap className="w-5 h-5" />}
-                value="1,850"
-                title="Assessments"
-                description="Resource Efficient & Cleaner Production (RECP) completed."
-                accentColor="#F59E0B"
-                growth="+12% YoY"
-              />
-              <KPICard
-                icon={<Leaf className="w-5 h-5" />}
-                value="2.4M t"
-                title="CO₂ Reduction"
-                description="Projected reduction through recommendations."
-                accentColor="#10B981"
-                growth="+32% YoY"
-              />
-            </div>
+          {/* Diagnostics */}
+          <div className="bg-[#3f7f5c] text-white text-center rounded-md px-8 py-6 mb-4 w-[90%]">
+            <h3 className="text-xl font-semibold mb-2">Diagnostics</h3>
+            <p className="text-sm opacity-80">
+              Energy assessments & opportunity identification
+            </p>
+          </div>
+
+          {/* Outreach */}
+          <div className="bg-[#52a36d] text-white text-center rounded-md px-8 py-6 w-full">
+            <h3 className="text-xl font-semibold mb-2">Outreach</h3>
+            <p className="text-sm opacity-90">
+              Awareness, onboarding & cluster engagement · 2,000 MSMEs
+            </p>
           </div>
         </div>
+
+        {/* ───────── RIGHT: STEPS (REVERSED ORDER) ───────── */}
+        <div className="flex flex-col divide-y divide-slate-200">
+
+          {/* STEP 04 - Impact */}
+          <div className="py-6 flex justify-between items-start">
+            <div>
+              <p className="text-[10px] tracking-[0.2em] text-emerald-700 mb-1 uppercase">Step 04</p>
+              <h3 className="text-lg font-semibold text-slate-800 mb-1">Impact</h3>
+              <p className="text-sm text-slate-600 max-w-md">
+                Measured cost savings, CO₂ reduction, and verified sustainability outcomes at enterprise and programme level.
+              </p>
+            </div>
+            <p className="text-orange-600 font-semibold text-sm whitespace-nowrap">
+              2.4 Mt CO₂ avoided
+            </p>
+          </div>
+
+          {/* STEP 03 */}
+          <div className="py-6 flex justify-between items-start">
+            <div>
+              <p className="text-[10px] tracking-[0.2em] text-emerald-700 mb-1 uppercase">Step 03</p>
+              <h3 className="text-lg font-semibold text-slate-800 mb-1">Implementation</h3>
+              <p className="text-sm text-slate-600 max-w-md">
+                Technology adoption and investment facilitation through the matchmaking platform linking MSMEs with vendors and financiers.
+              </p>
+            </div>
+            <p className="text-orange-600 font-semibold text-sm whitespace-nowrap">
+              145 deals closed
+            </p>
+          </div>
+
+          {/* STEP 02 */}
+          <div className="py-6 flex justify-between items-start">
+            <div>
+              <p className="text-[10px] tracking-[0.2em] text-emerald-700 mb-1 uppercase">Step 02</p>
+              <h3 className="text-lg font-semibold text-slate-800 mb-1">Diagnostics</h3>
+              <p className="text-sm text-slate-600 max-w-md">
+                Energy assessments and resource-efficiency audits by certified assessors, identifying opportunities at the shop floor.
+              </p>
+            </div>
+            <p className="text-orange-600 font-semibold text-sm whitespace-nowrap">
+              1,850 audits
+            </p>
+          </div>
+
+          {/* STEP 01 */}
+          <div className="py-6 flex justify-between items-start">
+            <div>
+              <p className="text-[10px] tracking-[0.2em] text-emerald-700 mb-1 uppercase">Step 01</p>
+              <h3 className="text-lg font-semibold text-slate-800 mb-1">Outreach</h3>
+              <p className="text-sm text-slate-600 max-w-md">
+                Region-wide awareness, onboarding, and cluster engagement to identify enterprises ready for sustainable upgrades.
+              </p>
+            </div>
+            <p className="text-orange-600 font-semibold text-sm whitespace-nowrap">
+              2,000 MSMEs
+            </p>
+          </div>
+
+        </div>
+
       </div>
     </section>
   );
@@ -252,28 +253,28 @@ function KPICard({
       className="group rounded-2xl p-6 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-slate-200 transition-all duration-500 hover:-translate-y-[2px] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] relative overflow-hidden bg-white h-full"
     >
       {/* Default Subtle Gradient Overlay */}
-      <div 
+      <div
         className="absolute inset-0 opacity-50 pointer-events-none transition-opacity duration-500 group-hover:opacity-20"
         style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.04), rgba(16,185,129,0.02))' }}
       />
-      
+
       {/* Premium Sweeping Rotating Light Ray (Visible on Hover) */}
       <div className="absolute -inset-[150%] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-        <div 
+        <div
           className="w-full h-full animate-[spin_4s_linear_infinite]"
           style={{ background: `conic-gradient(from 0deg, transparent 0%, ${accentColor}1A 15%, transparent 30%)` }}
         />
       </div>
-      
+
       {/* Left Accent Border */}
-      <div 
+      <div
         className="absolute left-0 top-0 bottom-0 w-1"
         style={{ backgroundColor: accentColor }}
       />
 
       <div className="relative z-10 flex flex-col h-full gap-4">
         <div className="flex items-start justify-between">
-          <div 
+          <div
             className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm transition-transform duration-700 ease-in-out group-hover:rotate-[360deg] group-hover:scale-110"
             style={{ backgroundColor: `${accentColor}1A`, color: accentColor }}
           >
@@ -285,7 +286,7 @@ function KPICard({
             </div>
           )}
         </div>
-        
+
         <div className="flex-1 flex flex-col justify-end">
           <p className="text-[11px] font-black uppercase tracking-widest text-slate-500 mb-1">{title}</p>
           <div className="flex items-baseline gap-2">

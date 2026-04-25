@@ -2,184 +2,132 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Users, 
-  MapPin, 
-  ChevronLeft, 
-  ChevronRight, 
-  Globe,
-  Presentation
-} from "lucide-react";
+import { Grid } from "lucide-react";
 
 export function EcosystemBuilding() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [index1, setIndex1] = useState(0);
+  const [index2, setIndex2] = useState(0);
 
-  const workshops = [
-    {
-      title: "Energy Efficiency Workshop",
-      location: "Hyderabad, Telangana",
-      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1000",
-    },
-    {
-      title: "Green Manufacturing Demo",
-      location: "Warangal, Telangana",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1000",
-    },
-    {
-      title: "Panel Discussion",
-      location: "Telangana MSMEs Summit",
-      image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=1000",
-    },
+  const set1 = [
+    { title: "Technical Session", location: "Industrial Cluster", image: "/images/workshops/085A8926.JPG" },
+    { title: "Capacity Building", location: "MSME Workshop", image: "/images/workshops/1D8A0937.JPG" },
+    { title: "Knowledge Sharing", location: "Sectoral Training", image: "/images/workshops/1D8A1106.JPG" },
+    { title: "Industrial Outreach", location: "Field Demonstration", image: "/images/workshops/1D8A8124.JPG" },
+    { title: "Energy Audit Training", location: "Manufacturing Unit", image: "/images/workshops/DSC03679.JPG" },
+    { title: "Strategic Planning", location: "Stakeholder Meet", image: "/images/workshops/DSC04090.JPG" },
   ];
 
-  const stats = [
-    { label: "Conducted", value: "45", icon: <Presentation size={20} className="text-emerald-600" /> },
-    { label: "Participants", value: "3,500", icon: <Users size={20} className="text-blue-600" /> },
-    { label: "States Covered", value: "12", icon: <Globe size={20} className="text-purple-600" /> },
+  const set2 = [
+    { title: "Panel Discussion", location: "Regional Summit", image: "/images/workshops/DSC06897.JPG" },
+    { title: "Expert Presentation", location: "Technology Hub", image: "/images/workshops/DSC07749.JPG" },
+    { title: "Group Workshop Photo", location: "Bollaram Cluster", image: "/images/workshops/Group Photo - Bollaram Workshop 30Jan2026.JPG" },
+    { title: "Q&A Session", location: "Technical Seminar", image: "/images/workshops/PANA8454.JPG" },
+    { title: "Felicitation Ceremony", location: "Bollaram Workshop", image: "/images/workshops/Shri Madhukar Babu Garu - Shri Ananda Rao, Bollaram Workshop 30Jan2026.JPG" },
   ];
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % workshops.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + workshops.length) % workshops.length);
-  };
 
   useEffect(() => {
-    const timer = setInterval(nextSlide, 5000);
-    return () => clearInterval(timer);
-  }, []);
+    const timer1 = setInterval(() => {
+      setIndex1((prev) => (prev + 1) % set1.length);
+    }, 5000);
+    const timer2 = setInterval(() => {
+      setIndex2((prev) => (prev + 1) % set2.length);
+    }, 6000); // Slightly staggered
+    return () => {
+      clearInterval(timer1);
+      clearInterval(timer2);
+    };
+  }, [set1.length, set2.length]);
+
+  const stats = [
+    { label: "CONDUCTED", value: "45" },
+    { label: "PARTICIPANTS", value: "3,500+" },
+    { label: "SECTORS COVERED", value: "15" },
+  ];
 
   return (
-    <section className="w-full py-2 px-4 md:px-8 bg-[#F5F3FF] font-sans border-t border-violet-200">
-      <div className="max-w-[1400px] mx-auto bg-white rounded-2xl p-6 md:p-8 shadow-2xl border border-purple-100/50">
-        
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4 border-b border-purple-50 pb-4">
-          <div className="space-y-0.5">
-            <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight uppercase italic">
-              Ecosystem <span className="text-emerald-600">Building</span>
-            </h2>
-            <p className="text-slate-500 font-bold uppercase text-[9px] tracking-[0.2em]">
-              Creating a comprehensive support system for MSMEs
-            </p>
-          </div>
-          <div className="max-w-md hidden md:block">
-            <p className="text-slate-400 text-[10px] font-medium leading-relaxed italic text-right">
-              "Workshops, technology, and partnerships facilitating a sustainable industrial transition."
-            </p>
-          </div>
+    <div className="w-full bg-[#F8F6F0] py-16 px-8 md:px-12 font-sans selection:bg-emerald-900 selection:text-white">
+      {/* Header & Stats Cards */}
+      <div className="flex flex-col lg:flex-row justify-between items-end mb-8 pb-8 border-b border-[#E6E2D6] gap-8">
+        <div>
+          <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-slate-400 mb-1">
+            Cluster Engagement • Capacity Building
+          </p>
+          <h2 className="text-4xl font-black tracking-tight text-slate-900 leading-none">
+            Ecosystem <span className="text-emerald-600">Building</span>
+          </h2>
+          <p className="mt-2 text-sm text-slate-400 font-medium max-w-md">
+            Collaborative workshops and technical demonstrations across industrial clusters.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          
-          {/* Stats & Info (Left) */}
-          <div className="lg:col-span-4 space-y-4">
-            <div className="space-y-1">
-              <h3 className="text-base font-black text-slate-800 uppercase italic flex items-center gap-2">
-                <Presentation size={16} className="text-emerald-600" />
-                Workshops
-              </h3>
-              <p className="text-slate-500 font-medium text-[11px] leading-relaxed">
-                Capacity-building programs across Telangana’s industrial clusters.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              {stats.map((stat, i) => (
-                <motion.div 
-                  key={i}
-                  whileHover={{ x: 5 }}
-                  className="bg-[#F9FAFB] p-3 rounded-xl border border-slate-200 flex items-center gap-4 transition-all hover:bg-white hover:border-emerald-200 hover:shadow-md"
-                >
-                  <div className="w-9 h-9 bg-white rounded-lg shadow-sm border border-slate-100 flex items-center justify-center">
-                    {stat.icon}
-                  </div>
-                  <div>
-                    <p className="text-lg font-black text-slate-900 leading-none">{stat.value}</p>
-                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-0.5">{stat.label}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Animated Slideshow (Right) */}
-          <div className="lg:col-span-8 relative group">
-            <div className="relative h-[340px] md:h-[380px] w-full overflow-hidden rounded-[20px] shadow-2xl bg-slate-50 border border-slate-200">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentIndex}
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
-                  className="absolute inset-0"
-                >
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-[5s] group-hover:scale-105"
-                    style={{ backgroundImage: `url(${workshops[currentIndex].image})` }}
-                  />
-                  
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                  
-                  {/* Content */}
-                  <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full">
-                    <motion.div
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.2 }}
-                      className="space-y-1.5"
-                    >
-                      <h4 className="text-lg md:text-xl font-black text-white leading-tight">
-                        {workshops[currentIndex].title}
-                      </h4>
-                      <div className="flex items-center gap-2 text-emerald-400 font-bold uppercase text-[9px] tracking-widest">
-                        <MapPin size={12} />
-                        {workshops[currentIndex].location}
-                      </div>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Controls */}
-              <div className="absolute inset-y-0 left-4 flex items-center">
-                <button 
-                  onClick={prevSlide}
-                  className="p-3 rounded-full bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-emerald-600 hover:border-emerald-500 transition-all shadow-lg"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-              </div>
-              <div className="absolute inset-y-0 right-4 flex items-center">
-                <button 
-                  onClick={nextSlide}
-                  className="p-3 rounded-full bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-emerald-600 hover:border-emerald-500 transition-all shadow-lg"
-                >
-                  <ChevronRight size={24} />
-                </button>
-              </div>
-
-              {/* Dots */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-                {workshops.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentIndex(i)}
-                    className={`h-1.5 rounded-full transition-all ${
-                      i === currentIndex ? "w-8 bg-emerald-500" : "w-2 bg-white/30 hover:bg-white/50"
-                    }`}
-                  />
+        <div className="flex gap-4">
+          {stats.map((stat) => (
+            <div key={stat.label} className="bg-white border border-[#E6E2D6] px-6 py-4 rounded-md min-w-[140px] text-left shadow-sm">
+              <div className="text-3xl font-black text-[#102a1d] mb-1">{stat.value}</div>
+              <div className="text-[9px] font-bold tracking-[0.2em] text-[#8C8673] uppercase leading-tight">
+                {stat.label.split(' ').map((word, i) => (
+                  <div key={i}>{word}</div>
                 ))}
               </div>
             </div>
-          </div>
-
+          ))}
         </div>
       </div>
-    </section>
+
+      {/* Slideshow Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-[400px] md:h-[500px]">
+        {/* Slideshow 1 */}
+        <div className="relative rounded-lg overflow-hidden shadow-2xl group border border-[#E6E2D6]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={index1}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.8 }}
+              className="absolute inset-0"
+            >
+              <img
+                src={set1[index1].image}
+                alt={set1[index1].title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6">
+                <p className="text-white font-medium text-sm tracking-wide">
+                  {set1[index1].title} <span className="text-white/60 mx-1">·</span> {set1[index1].location}
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Slideshow 2 */}
+        <div className="relative rounded-lg overflow-hidden shadow-2xl group border border-[#E6E2D6]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={index2}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.8 }}
+              className="absolute inset-0"
+            >
+              <img
+                src={set2[index2].image}
+                alt={set2[index2].title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6">
+                <p className="text-white font-medium text-sm tracking-wide">
+                  {set2[index2].title} <span className="text-white/60 mx-1">·</span> {set2[index2].location}
+                </p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
   );
 }

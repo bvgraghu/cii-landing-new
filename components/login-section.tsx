@@ -2,10 +2,10 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { 
-  Lock, 
-  Mail, 
-  ArrowRight, 
+import {
+  Lock,
+  Mail,
+  ArrowRight,
   ShieldCheck,
   Building2,
   Key
@@ -22,7 +22,7 @@ export function LoginSection() {
 
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          
+
           {/* Text Content */}
           <div className="space-y-8 text-white">
             <div className="space-y-3">
@@ -61,7 +61,7 @@ export function LoginSection() {
           </div>
 
           {/* Login Form Card */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -69,7 +69,7 @@ export function LoginSection() {
           >
             <div className="space-y-6">
               <div className="text-center space-y-2 mb-8">
-                <h3 className="text-2xl font-black text-slate-900 uppercase italic">Welcome Back</h3>
+                <h3 className="text-2xl font-black text-slate-900 uppercase italic">Login</h3>
                 <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">Enter your credentials to continue</p>
               </div>
 
@@ -78,9 +78,9 @@ export function LoginSection() {
                   <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Email Address</label>
                   <div className="relative group">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-600 transition-colors" size={18} />
-                    <input 
-                      type="email" 
-                      placeholder="name@company.com" 
+                    <input
+                      type="email"
+                      placeholder="name@company.com"
                       className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
                     />
                   </div>
@@ -93,26 +93,27 @@ export function LoginSection() {
                   </div>
                   <div className="relative group">
                     <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-600 transition-colors" size={18} />
-                    <input 
-                      type="password" 
-                      placeholder="••••••••" 
+                    <input
+                      type="password"
+                      placeholder="••••••••"
                       className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
                     />
                   </div>
                 </div>
               </div>
 
-              <motion.button 
+              <motion.a
+                href="https://cii.metaversedu.in/login"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-emerald-600 text-white rounded-2xl py-5 font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-emerald-600/20 hover:bg-emerald-700 transition-all flex items-center justify-center gap-3 mt-4"
+                className="w-full bg-emerald-600 text-white rounded-2xl py-5 font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-emerald-600/20 hover:bg-emerald-700 transition-all flex items-center justify-center gap-3 mt-4 no-underline"
               >
                 Sign In to Portal <ArrowRight size={18} />
-              </motion.button>
+              </motion.a>
 
               <div className="pt-6 text-center">
                 <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
-                  Don't have an account? <a href="#" className="text-emerald-600 hover:underline">Register Now</a>
+                  Don't have an account? <a href="https://cii.metaversedu.in/login" className="text-emerald-600 hover:underline">Register Now</a>
                 </p>
               </div>
             </div>
